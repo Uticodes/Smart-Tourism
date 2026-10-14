@@ -1,0 +1,50 @@
+@import "tailwindcss";
+
+/* Design tokens: drawn from Abuja itself.
+   granite = Aso Rock, green = Nigerian flag, laterite = the red earth,
+   used ONLY to mark community-discovered sites. */
+@theme {
+  --font-sans: "Schibsted Grotesk", ui-sans-serif, system-ui, sans-serif;
+
+  --color-granite-900: #2B3036;
+  --color-granite-700: #4A525B;
+  --color-granite-500: #78818A;
+  --color-granite-200: #D5DBD8;
+  --color-granite-100: #E6EBE8;
+
+  --color-paper: #F4F7F3;
+  --color-surface: #FFFFFF;
+
+  --color-green-700: #075C39;
+  --color-green-600: #0A7A4B;
+  --color-green-50: #E3F1EA;
+
+  --color-laterite-600: #9A3F22;
+  --color-laterite-50: #F6E7E0;
+
+  --color-danger: #B42318;
+}
+
+@layer base {
+  html { color-scheme: light; }
+  body {
+    @apply bg-paper text-granite-900 font-sans antialiased;
+    font-feature-settings: "ss01";
+  }
+  h1, h2, h3 { @apply font-bold tracking-tight text-granite-900; }
+  :focus-visible { outline: 3px solid var(--color-green-600); outline-offset: 2px; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+  }
+}
+
+@layer components {
+  .btn-primary { @apply inline-flex items-center justify-center gap-2 rounded-md px-4 py-2.5 text-[15px] font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-60 bg-green-600 text-white hover:bg-green-700; }
+  .btn-quiet { @apply inline-flex items-center justify-center gap-2 rounded-md px-4 py-2.5 text-[15px] font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-60 border border-granite-200 bg-surface text-granite-900 hover:bg-granite-100; }
+  .field { @apply block w-full rounded-md border border-granite-200 bg-surface px-3 py-2.5 text-[15px]
+      placeholder:text-granite-500 focus:border-green-600 focus:outline-none focus:ring-2 focus:ring-green-600/25; }
+  .label { @apply mb-1.5 block text-sm font-semibold text-granite-700; }
+  .community-badge {
+    @apply inline-flex items-center gap-1.5 rounded-full bg-laterite-50 px-2.5 py-1 text-xs font-semibold text-laterite-600;
+  }
+}

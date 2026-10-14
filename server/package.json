@@ -1,0 +1,40 @@
+{
+  "name": "smart-tourism-server",
+  "version": "0.1.0",
+  "private": true,
+  "description": "REST API for the Crowdsourced Smart Tourism Recommendation and Navigation System (Abuja)",
+  "main": "src/server.js",
+  "scripts": {
+    "dev": "node --watch src/server.js",
+    "start": "node src/server.js",
+    "db:setup": "node db/setup.js",
+    "test": "jest --runInBand",
+    "data:verify": "node scripts/verify-attractions.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "jest": {
+    "testEnvironment": "node"
+  },
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.6",
+    "dotenv": "^18.0.7",
+    "express": "^4.22.3",
+    "express-rate-limit": "^8.7.1",
+    "helmet": "^8.3.0",
+    "jsonwebtoken": "^9.0.3",
+    "morgan": "^1.12.1",
+    "multer": "^2.4.0",
+    "mysql2": "^3.24.6",
+    "node-cron": "^4.6.0",
+    "sharp": "^0.35.5",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "jest": "^30.5.2",
+    "supertest": "^7.3.1"
+  }
+}
