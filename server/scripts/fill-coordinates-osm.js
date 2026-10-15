@@ -1,6 +1,8 @@
 /**
  * Fills missing attraction coordinates from OpenStreetMap (Nominatim) and cross-checks the rest.
- *   npm run data:fill-osm
+ *   npm run data:fill-osm                    # check all 50, writes data/osm-report.csv
+ *   npm run data:fill-osm -- --missing-only  # only rows still without coordinates,
+ *                                            # tries their "aliases" too, writes data/osm-report-pass2.csv
  *
  * No API key needed. Follows the Nominatim usage policy: one request per second,
  * an identifying User-Agent, and results cached in the output so the script is not re-run often.
@@ -16,7 +18,8 @@ const path = require('path');
 const { haversineKm } = require('../src/lib/haversine');
 
 const DATA = path.join(__dirname, '../data/attractions.json');
-const REPORT = path.join(__dirname, '../data/osm-report.csv');
+const MISSING_ONLY = process.argv.includes('--missing-only');
+const REPORT = path.join(__dirname, MISSING_ONLY ? '../data/osm-report-pass2.csv' : '../data/osm-report.csv');
 const FLAG_METRES = 300;
 const USER_AGENT = 'DiscoverAbuja/0.1 (Miva Open University final-year project; seed data check)';
 
@@ -46,7 +49,9 @@ async function nominatim(query) {
 /** Tries a few phrasings, most specific first, one request per second. */
 async function findPlace(a) {
   const district = a.address.split(',')[0];
-  const queries = [`${a.name}, Abuja`, `${a.name}, ${district}`, a.name];
+  const names = [a.name, ...(a.aliases || [])];
+  const queries = [];
+  for (const n of names) queries.push(`${n}, Abuja`, `${n}, ${district}`, n);
   for (const q of queries) {
     const hit = await nominatim(q);
     await sleep(1100);
@@ -64,7 +69,10 @@ async function main() {
   const lines = [header.join(',')];
   let filled = 0, ok = 0, flagged = 0, missing = 0;
 
-  for (const a of attractions) {
+  const todo = MISSING_ONLY ? attractions.filter((a) => a.latitude == null) : attractions;
+  console.log(`Searching OpenStreetMap for ${todo.length} attractions (one request per second)...\n`);
+
+  for (const a of todo) {
     const found = await findPlace(a);
     if (!found) {
       missing += 1;
@@ -98,7 +106,7 @@ async function main() {
   fs.writeFileSync(DATA, JSON.stringify(attractions, null, 2) + '\n');
   fs.writeFileSync(REPORT, lines.join('\n') + '\n');
   console.log(`\nFilled ${filled}, confirmed ${ok}, flagged ${flagged}, not found ${missing}.`);
-  console.log(`Updated data/attractions.json and wrote data/osm-report.csv`);
+  console.log(`Updated data/attractions.json and wrote ${path.relative(path.join(__dirname, '..'), REPORT)}`);
   console.log('Map data © OpenStreetMap contributors (ODbL).');
 }
 
