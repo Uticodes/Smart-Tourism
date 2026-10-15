@@ -62,7 +62,17 @@ The home page should say "Server and database connected."
 - **17** have coordinates confirmed from a named source: Wikipedia article infoboxes, or the NGA GeoNames gazetteer for forest reserves. The source is stored in each row's `coord_source`.
 - **33** have names and addresses from FCTA and published Abuja guides, but no coordinates yet.
 
-To complete and check them, add `GOOGLE_MAPS_SERVER_KEY` to `server/.env`, then:
+**Option A: OpenStreetMap (no key needed).** From your own computer (it needs internet access):
+
+```bash
+cd server
+npm run data:fill-osm   # about 1 minute: OpenStreetMap allows one lookup per second
+npm run db:setup        # reload with the filled coordinates
+```
+
+It writes `server/data/osm-report.csv`. Check every `FILLED` row to confirm the OSM name is the right place, then set `"verified": true` for that attraction in `attractions.json`. Rows marked `CHECK` disagree with OpenStreetMap by more than 300 m. Rows marked `NOT FOUND` need coordinates added by hand (right-click the place on openstreetmap.org and choose "Show address"). Map data © OpenStreetMap contributors.
+
+**Option B: Google Places (cross-check, needs billing).** Add `GOOGLE_MAPS_SERVER_KEY` to `server/.env`, then:
 
 ```bash
 cd server

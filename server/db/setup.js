@@ -64,7 +64,7 @@ async function main() {
     }
     console.log(`Inserted ${attractions.length - skipped} attractions.`);
     if (skipped) {
-      console.warn(`Skipped ${skipped} attractions with no coordinates yet. Run \`npm run data:verify\` (needs GOOGLE_MAPS_SERVER_KEY), then run db:setup again.`);
+      console.warn(`Skipped ${skipped} attractions with no coordinates yet. Run \`npm run data:fill-osm\` (or \`npm run data:verify\` with a Google key), then run db:setup again.`);
     }
   } finally {
     await conn.end();
