@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Circle, MapContainer, Marker, TileLayer, Tooltip, useMap, useMapEvents } from 'react-leaflet';
+import { Circle, MapContainer, Marker, Popup, TileLayer, Tooltip, useMap, useMapEvents } from 'react-leaflet';
 import { attractionIcon, userIcon } from './pins.js';
 
 export const ABUJA_CENTRE = { lat: 9.0579, lng: 7.4951, label: 'Abuja city centre' };
@@ -12,7 +12,7 @@ const ATTRIBUTION = '&copy; <a href="https://www.openstreetmap.org/copyright">Op
 function Viewport({ center, zoom, bounds }) {
   const map = useMap();
   useEffect(() => {
-    if (bounds && bounds.length > 1) map.fitBounds(bounds, { padding: [24, 24], maxZoom: 15 });
+    if (bounds && bounds.length > 1) map.fitBounds(bounds, { padding: [44, 44], maxZoom: 15 });
     else if (center) map.setView([center.lat, center.lng], zoom ?? map.getZoom());
   }, [map, center?.lat, center?.lng, zoom, JSON.stringify(bounds)]); // eslint-disable-line react-hooks/exhaustive-deps
   return null;
@@ -26,6 +26,7 @@ function ClickHandler({ onClick }) {
 /**
  * Shared map used by Explore (results), the details page and the admin form.
  * markers: [{ id, lat, lng, name, source }]
+ * renderPopup(marker): optional info window content shown when a pin is clicked.
  */
 export default function MapView({
   center = ABUJA_CENTRE,
@@ -38,6 +39,7 @@ export default function MapView({
   fitToMarkers = false,
   bounds: boundsOverride,
   onMapClick,
+  renderPopup,
   className = 'h-[420px]',
   children,
 }) {
@@ -77,7 +79,11 @@ export default function MapView({
             eventHandlers={{ click: () => onSelect?.(m.id) }}
             title={m.name}
           >
-            <Tooltip direction="top" offset={[0, -24]}>{m.name}</Tooltip>
+            {renderPopup ? (
+              <Popup offset={[0, -18]}>{renderPopup(m)}</Popup>
+            ) : (
+              <Tooltip direction="top" offset={[0, -24]}>{m.name}</Tooltip>
+            )}
           </Marker>
         ))}
         {children}

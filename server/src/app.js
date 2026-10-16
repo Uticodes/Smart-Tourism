@@ -33,6 +33,7 @@ app.use('/api/auth', require('./modules/auth/auth.routes'));
 app.use('/api/categories', require('./modules/categories/categories.routes'));
 app.use('/api/users', require('./modules/users/users.routes'));
 app.use('/api/attractions', require('./modules/attractions/attractions.routes'));
+app.use('/api/recommendations', require('./modules/recommendations/recommendations.routes'));
 app.use('/api/admin/attractions', require('./modules/attractions/attractions.admin.routes'));
 app.use('/api/admin/categories', require('./modules/categories/categories.admin.routes'));
 

@@ -114,6 +114,8 @@ Tests run against the separate `smart_tourism_test` database (created in the MyS
 | F2      | Choose preferred attraction categories                              | FR-02        | 3 tests               |
 | F3      | Admin: add, edit and deactivate attractions with a map pin; manage categories | FR-09 | TC-ADM-01 and 4 more |
 | F4      | Explore: search 1–50 km from your location or a chosen point, filter by category and rating, list and map | FR-03, FR-05 | TC-SEARCH-01 and 4 more; geo unit tests |
+| F5      | Home page recommendations: score = 0.4 × category match + 0.3 × rating + 0.3 × proximity, list or map; logs which result was opened (for MRR) | FR-04 | TC-REC-01 and 6 more; scoring unit tests |
+| F6      | Attraction details page with photos, description, map and **Get directions** (opens Google Maps) | FR-05, FR-06, FR-07 | TC-NAV-01 and 2 more; directions unit tests |
 
 Sign in as the admin (see Demo accounts) and open **Admin** in the top bar to use F3.
 

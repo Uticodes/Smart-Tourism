@@ -1,6 +1,7 @@
 const { pool } = require('../../config/db');
 const { HttpError } = require('../../middleware/errors');
 const { insideFCT, boundingBox, withinRadius } = require('../../lib/geo');
+const { directionsUrl } = require('../../lib/directions');
 
 const SELECT_COLUMNS = `
   a.attraction_id, a.name, a.category_id, c.category_name, a.description,
@@ -48,6 +49,36 @@ async function getById(id, { includeInactive = false } = {}) {
   );
   if (!row) throw new HttpError(404, 'This attraction does not exist or has been removed.');
   return row;
+}
+
+/**
+ * Public details page (FR-06, FR-07): everything getById returns, plus the photo list,
+ * the Google Maps directions link and, for community-discovered sites, who reported it and when it was approved.
+ */
+async function getDetails(id) {
+  const a = await getById(id);
+  let photos = a.image_url ? [a.image_url] : [];
+  let community = null;
+  if (a.source === 'community') {
+    const [[r]] = await pool.execute(
+      `SELECT r.local_name, r.access_notes, r.photo_urls, r.reviewed_at, COALESCE(u.display_name, u.full_name) AS contributor
+         FROM Attractions a JOIN Site_Reports r ON r.report_id = a.report_id
+         LEFT JOIN Users u ON u.user_id = r.reporter_id
+        WHERE a.attraction_id = ?`,
+      [id]
+    );
+    if (r) {
+      const reportPhotos = typeof r.photo_urls === 'string' ? JSON.parse(r.photo_urls) : r.photo_urls || [];
+      photos = [...new Set([...photos, ...reportPhotos])];
+      community = {
+        contributor: r.contributor ? r.contributor.split(' ')[0] : null, // first name only (privacy)
+        verified_at: r.reviewed_at,
+        local_name: r.local_name,
+        access_notes: r.access_notes,
+      };
+    }
+  }
+  return { ...a, photos, community, directions_url: directionsUrl(a.latitude, a.longitude) };
 }
 
 async function listForAdmin({ q, status, category }) {
@@ -111,4 +142,4 @@ async function deactivate(id) {
   return getById(id, { includeInactive: true });
 }
 
-module.exports = { findNearby, logSearch, getById, listForAdmin, create, update, deactivate };
+module.exports = { findNearby, logSearch, getById, getDetails, listForAdmin, create, update, deactivate };

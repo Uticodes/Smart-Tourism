@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 import MapView, { ABUJA_CENTRE } from '../components/map/MapView.jsx';
 import Stars from '../components/Stars.jsx';
 import useGeolocation from '../hooks/useGeolocation.js';
@@ -6,9 +7,7 @@ import { searchNearby } from '../api/attractions.js';
 import { fetchCategories } from '../api/users.js';
 import { errorMessage } from '../api/client.js';
 
-// Same approximate box as the server's FCT check.
-const inFCT = (p) => p.lat >= 8.3 && p.lat <= 9.4 && p.lng >= 6.7 && p.lng <= 7.7;
-const km = (d) => (d < 1 ? `${Math.round(d * 1000)} m` : `${d.toFixed(1)} km`);
+import { inFCT, km } from '../lib/format.js';
 
 export default function ExplorePage() {
   const geo = useGeolocation();
@@ -162,21 +161,36 @@ export default function ExplorePage() {
               const on = a.attraction_id === selectedId;
               return (
                 <li key={a.attraction_id} ref={(el) => { itemRefs.current[a.attraction_id] = el; }}>
-                  <button
-                    type="button"
-                    onClick={() => setSelectedId(a.attraction_id)}
-                    className={`w-full rounded-lg border bg-surface p-4 text-left transition-colors ${on ? 'border-green-600 ring-1 ring-green-600' : 'border-granite-200 hover:border-granite-500'}`}
-                  >
-                    <span className="flex items-start justify-between gap-3">
-                      <span className="font-semibold">{a.name}</span>
-                      <span className="shrink-0 text-sm font-semibold text-granite-700">{km(a.distance_km)}</span>
-                    </span>
-                    <span className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-granite-700">
-                      <span>{a.category_name}</span>
-                      <Stars value={a.avg_rating} count={a.review_count || null} />
-                      {a.source === 'community' && <span className="community-badge">Community-discovered</span>}
-                    </span>
-                  </button>
+                  <div className={`overflow-hidden rounded-lg border bg-surface transition-colors ${on ? 'border-green-600 ring-1 ring-green-600' : 'border-granite-200 hover:border-granite-500'}`}>
+                    <button
+                      type="button"
+                      onClick={() => setSelectedId(a.attraction_id)}
+                      aria-expanded={on}
+                      className="w-full p-4 text-left"
+                    >
+                      <span className="flex items-start justify-between gap-3">
+                        <span className="font-semibold">{a.name}</span>
+                        <span className="shrink-0 text-sm font-semibold text-granite-700">{km(a.distance_km)}</span>
+                      </span>
+                      <span className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-granite-700">
+                        <span>{a.category_name}</span>
+                        <Stars value={a.avg_rating} count={a.review_count || null} />
+                        {a.source === 'community' && <span className="community-badge">Community-discovered</span>}
+                      </span>
+                    </button>
+                    {on && (
+                      <div className="flex items-center justify-between gap-3 border-t border-granite-100 px-4 py-2.5">
+                        <span className="truncate text-sm text-granite-500">{a.address}</span>
+                        <Link
+                          to={`/attractions/${a.attraction_id}`}
+                          state={{ origin: { lat: origin.lat, lng: origin.lng, label: origin.label } }}
+                          className="shrink-0 text-sm font-semibold text-green-700 hover:underline"
+                        >
+                          View details →
+                        </Link>
+                      </div>
+                    )}
+                  </div>
                 </li>
               );
             })}
