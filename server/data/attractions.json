@@ -55,59 +55,15 @@
     "image_url": null
   },
   {
-    "name": "National Assembly Complex",
-    "category": "Historical Sites",
-    "address": "Three Arms Zone, Abuja, FCT",
-    "description": "Seat of the Senate and House of Representatives, with its distinctive green dome.",
-    "latitude": null,
-    "longitude": null,
-    "coord_source": null,
-    "verified": false,
-    "image_url": null,
-    "aliases": [
-      "National Assembly",
-      "Nigerian National Assembly"
-    ]
-  },
-  {
-    "name": "Supreme Court of Nigeria",
-    "category": "Historical Sites",
-    "address": "Three Arms Zone, Abuja, FCT",
-    "description": "Nigeria's highest court, one of the three arms of government in the Three Arms Zone.",
-    "latitude": 9.061163,
-    "longitude": 7.507645,
-    "coord_source": "OpenStreetMap (Nominatim), matched \"Supreme Court of Nigeria\" (way/188280983) on 2026-10-15; match reviewed 2026-10-15",
-    "verified": true,
-    "image_url": null
-  },
-  {
-    "name": "Tomb of the Unknown Soldier",
-    "category": "Historical Sites",
-    "address": "Central District, facing Eagle Square, Abuja, FCT",
-    "description": "Memorial to Nigeria's fallen soldiers.",
-    "latitude": null,
-    "longitude": null,
-    "coord_source": null,
-    "verified": false,
-    "image_url": null,
-    "aliases": [
-      "Unknown Soldier"
-    ]
-  },
-  {
     "name": "Bola Ahmed Tinubu International Conference Centre",
     "category": "Historical Sites",
     "address": "Herbert Macaulay Way, Central Area, Abuja, FCT",
     "description": "National conference venue, formerly the International Conference Centre.",
-    "latitude": null,
-    "longitude": null,
-    "coord_source": null,
-    "verified": false,
-    "image_url": null,
-    "aliases": [
-      "International Conference Centre",
-      "ICC Abuja"
-    ]
+    "latitude": 9.043912,
+    "longitude": 7.492193,
+    "coord_source": "Manual lookup in the Google Maps app by the project author, 2026-10-16",
+    "verified": true,
+    "image_url": null
   },
   {
     "name": "Moshood Abiola National Stadium",
@@ -119,34 +75,6 @@
     "coord_source": "OpenStreetMap (Nominatim), matched \"Moshood Abiola National Stadium\" (relation/13989805) on 2026-10-15; match reviewed 2026-10-15",
     "verified": true,
     "image_url": null
-  },
-  {
-    "name": "Central Bank of Nigeria Headquarters",
-    "category": "Historical Sites",
-    "address": "Central Business District, Abuja, FCT",
-    "description": "Landmark headquarters of Nigeria's central bank.",
-    "latitude": null,
-    "longitude": null,
-    "coord_source": null,
-    "verified": false,
-    "image_url": null,
-    "aliases": [
-      "Central Bank of Nigeria"
-    ]
-  },
-  {
-    "name": "Federal Secretariat Complex",
-    "category": "Historical Sites",
-    "address": "Shehu Shagari Way, Central District, Abuja, FCT",
-    "description": "Complex housing federal ministries, a core part of the planned capital.",
-    "latitude": null,
-    "longitude": null,
-    "coord_source": null,
-    "verified": false,
-    "image_url": null,
-    "aliases": [
-      "Federal Secretariat"
-    ]
   },
   {
     "name": "Aso Rock",
@@ -186,16 +114,11 @@
     "category": "Parks & Nature",
     "address": "Asokoro District, Abuja, FCT",
     "description": "Family zoo and park with animals, playgrounds and picnic areas.",
-    "latitude": null,
-    "longitude": null,
-    "coord_source": null,
-    "verified": false,
-    "image_url": null,
-    "aliases": [
-      "National Children's Park",
-      "Children's Park and Zoo",
-      "Abuja Zoo"
-    ]
+    "latitude": 9.081949,
+    "longitude": 7.525183,
+    "coord_source": "Manual lookup in the Google Maps app by the project author, 2026-10-16",
+    "verified": true,
+    "image_url": null
   },
   {
     "name": "Usuma Dam",
@@ -213,15 +136,11 @@
     "category": "Parks & Nature",
     "address": "Ahmadu Bello Way, Wuse II, Abuja, FCT",
     "description": "Landscaped recreation park with gardens, restaurants and activities.",
-    "latitude": null,
-    "longitude": null,
-    "coord_source": null,
-    "verified": false,
-    "image_url": null,
-    "aliases": [
-      "City Park Wuse",
-      "Wuse City Park"
-    ]
+    "latitude": 9.076275,
+    "longitude": 7.475757,
+    "coord_source": "Manual lookup in the Google Maps app by the project author, 2026-10-16",
+    "verified": true,
+    "image_url": null
   },
   {
     "name": "Central Park Abuja",
@@ -239,75 +158,55 @@
     "category": "Parks & Nature",
     "address": "Constitution Avenue, Central Area, Abuja, FCT",
     "description": "Amusement park with rides and gardens for families.",
-    "latitude": null,
-    "longitude": null,
-    "coord_source": null,
-    "verified": false,
-    "image_url": null,
-    "aliases": [
-      "Magicland",
-      "Magic Land Amusement Park"
-    ]
+    "latitude": 9.042749,
+    "longitude": 7.451086,
+    "coord_source": "Manual lookup in the Google Maps app by the project author, 2026-10-16 (corrected pin)",
+    "verified": true,
+    "image_url": null
   },
   {
     "name": "Jabi Boat Club",
     "category": "Parks & Nature",
     "address": "Jabi Lake, Jabi District, Abuja, FCT",
     "description": "Lakeside club offering boating and water activities on Jabi Lake.",
-    "latitude": null,
-    "longitude": null,
-    "coord_source": null,
-    "verified": false,
-    "image_url": null,
-    "aliases": [
-      "Boat Club Jabi",
-      "Jabi Lake Boat Club"
-    ]
+    "latitude": 9.069935,
+    "longitude": 7.414696,
+    "coord_source": "Manual lookup in the Google Maps app by the project author, 2026-10-16",
+    "verified": true,
+    "image_url": null
   },
   {
     "name": "Mpape Crushed Rock",
     "category": "Parks & Nature",
     "address": "Mpape, Bwari Area Council, Abuja, FCT",
     "description": "Flooded former quarry surrounded by rock walls, popular with hikers and photographers.",
-    "latitude": null,
-    "longitude": null,
-    "coord_source": null,
-    "verified": false,
-    "image_url": null,
-    "aliases": [
-      "Mpape Crush Rock",
-      "Crush Rock Mpape",
-      "Mpape Quarry"
-    ]
+    "latitude": 9.134201,
+    "longitude": 7.498479,
+    "coord_source": "Manual lookup in the Google Maps app by the project author, 2026-10-16",
+    "verified": true,
+    "image_url": null
   },
   {
     "name": "Katampe Hill",
     "category": "Parks & Nature",
     "address": "Katampe District, Abuja, FCT",
     "description": "Hill often described as the geographic centre of Nigeria, with views over the city.",
-    "latitude": null,
-    "longitude": null,
-    "coord_source": null,
-    "verified": false,
-    "image_url": null,
-    "aliases": [
-      "Katampe Hills"
-    ]
+    "latitude": 9.139096,
+    "longitude": 7.427215,
+    "coord_source": "Manual lookup in the Google Maps app by the project author, 2026-10-16",
+    "verified": true,
+    "image_url": null
   },
   {
     "name": "Abuja Plant Nursery",
     "category": "Parks & Nature",
-    "address": "Central District, Abuja, FCT",
+    "address": "Asokoro District, Abuja, FCT",
     "description": "Plant nursery and green space in the city centre.",
-    "latitude": null,
-    "longitude": null,
-    "coord_source": null,
-    "verified": false,
-    "image_url": null,
-    "aliases": [
-      "Plant Nursery Abuja",
-      "City Nursery"
-    ]
+    "latitude": 9.085553,
+    "longitude": 7.522273,
+    "coord_source": "Manual lookup in the Google Maps app by the project author, 2026-10-16 (Asokoro, beside the Children's Park and Zoo; corrected pin)",
+    "verified": true,
+    "image_url": null
   },
   {
     "name": "Kuje Forest Reserve",
@@ -336,16 +235,11 @@
     "category": "Arts & Culture",
     "address": "Central Business District, near Silverbird Galleria, Abuja, FCT",
     "description": "Market of local artisans selling textiles, pottery, beadwork and carvings.",
-    "latitude": null,
-    "longitude": null,
-    "coord_source": null,
-    "verified": false,
-    "image_url": null,
-    "aliases": [
-      "Arts and Crafts Village",
-      "Arts and Craft Village",
-      "Abuja Arts & Crafts Village"
-    ]
+    "latitude": 9.068496,
+    "longitude": 7.484038,
+    "coord_source": "Manual lookup in the Google Maps app by the project author, 2026-10-16",
+    "verified": true,
+    "image_url": null
   },
   {
     "name": "Thought Pyramid Art Centre",
@@ -363,45 +257,33 @@
     "category": "Arts & Culture",
     "address": "Central Business District, Abuja, FCT",
     "description": "National gallery with paintings, sculptures and rotating exhibitions.",
-    "latitude": null,
-    "longitude": null,
-    "coord_source": null,
-    "verified": false,
-    "image_url": null,
-    "aliases": [
-      "National Gallery of Art Abuja",
-      "National Gallery"
-    ]
+    "latitude": 9.024433,
+    "longitude": 7.473354,
+    "coord_source": "Manual lookup in the Google Maps app by the project author, 2026-10-16",
+    "verified": true,
+    "image_url": null
   },
   {
     "name": "Cyprian Ekwensi Centre for Arts and Culture",
     "category": "Arts & Culture",
     "address": "Area 10, Garki, Abuja, FCT",
     "description": "Arts and culture centre hosting performances and exhibitions.",
-    "latitude": null,
-    "longitude": null,
-    "coord_source": null,
-    "verified": false,
-    "image_url": null,
-    "aliases": [
-      "Cyprian Ekwensi Centre",
-      "Cyprian Ekwensi"
-    ]
+    "latitude": 9.037807,
+    "longitude": 7.485005,
+    "coord_source": "Manual lookup in the Google Maps app by the project author, 2026-10-16",
+    "verified": true,
+    "image_url": null
   },
   {
     "name": "Ushafa Pottery Village",
     "category": "Arts & Culture",
     "address": "Ushafa, Bwari Area Council, Abuja, FCT",
     "description": "Traditional Gbagyi pottery village where visitors watch potters at work.",
-    "latitude": null,
-    "longitude": null,
-    "coord_source": null,
+    "latitude": 9.27709,
+    "longitude": 7.380918,
+    "coord_source": "Manual lookup in the Google Maps app by the project author, 2026-10-16 (Google Maps places it in Bwari town, about 9 km from Ushafa village; confirm on a site visit)",
     "verified": false,
-    "image_url": null,
-    "aliases": [
-      "Ushafa Pottery",
-      "Ushafa Pottery Centre"
-    ]
+    "image_url": null
   },
   {
     "name": "Shehu Musa Yar'Adua Centre",
@@ -452,30 +334,22 @@
     "category": "Religious Sites",
     "address": "Area 3, Garki, Abuja, FCT",
     "description": "Catholic pro-cathedral of the Archdiocese of Abuja.",
-    "latitude": null,
-    "longitude": null,
-    "coord_source": null,
-    "verified": false,
-    "image_url": null,
-    "aliases": [
-      "Our Lady Queen of Nigeria",
-      "Pro-Cathedral Garki"
-    ]
+    "latitude": 9.029772,
+    "longitude": 7.482159,
+    "coord_source": "Manual lookup in the Google Maps app by the project author, 2026-10-16",
+    "verified": true,
+    "image_url": null
   },
   {
     "name": "Cathedral Church of the Advent",
     "category": "Religious Sites",
     "address": "Life Camp, Gwarinpa, Abuja, FCT",
     "description": "Anglican cathedral serving the Diocese of Abuja.",
-    "latitude": null,
-    "longitude": null,
-    "coord_source": null,
-    "verified": false,
-    "image_url": null,
-    "aliases": [
-      "Church of the Advent",
-      "Cathedral of the Advent"
-    ]
+    "latitude": 9.079706,
+    "longitude": 7.396771,
+    "coord_source": "Manual lookup in the Google Maps app by the project author, 2026-10-16",
+    "verified": true,
+    "image_url": null
   },
   {
     "name": "University of Abuja",
@@ -559,15 +433,11 @@
     "category": "Educational Sites",
     "address": "Bwari, Abuja, FCT",
     "description": "Headquarters campus of the Nigerian Law School.",
-    "latitude": null,
-    "longitude": null,
-    "coord_source": null,
-    "verified": false,
-    "image_url": null,
-    "aliases": [
-      "Nigerian Law School",
-      "Nigerian Law School Bwari"
-    ]
+    "latitude": 9.276655,
+    "longitude": 7.358654,
+    "coord_source": "Manual lookup in the Google Maps app by the project author, 2026-10-16 (Bwari campus)",
+    "verified": true,
+    "image_url": null
   },
   {
     "name": "National Open University of Nigeria",
@@ -577,54 +447,6 @@
     "latitude": 9.020814,
     "longitude": 7.40832,
     "coord_source": "OpenStreetMap (Nominatim), matched \"National Open University of Nigeria\" (way/670255155) on 2026-10-15; match reviewed 2026-10-15",
-    "verified": true,
-    "image_url": null
-  },
-  {
-    "name": "National Mathematical Centre",
-    "category": "Educational Sites",
-    "address": "Sheda, Kwali Area Council, Abuja, FCT",
-    "description": "National centre for mathematical sciences research and training.",
-    "latitude": null,
-    "longitude": null,
-    "coord_source": null,
-    "verified": false,
-    "image_url": null,
-    "aliases": [
-      "National Mathematical Centre Sheda",
-      "Mathematical Centre Sheda"
-    ]
-  },
-  {
-    "name": "National Space Research and Development Agency",
-    "category": "Educational Sites",
-    "address": "Airport Road, Lugbe, Abuja, FCT",
-    "description": "Headquarters of Nigeria's space agency.",
-    "latitude": 8.989782,
-    "longitude": 7.387074,
-    "coord_source": "OpenStreetMap (Nominatim), matched \"National Space Research and Development Agency\" (way/183960814) on 2026-10-15; match reviewed 2026-10-15",
-    "verified": true,
-    "image_url": null
-  },
-  {
-    "name": "Radio House",
-    "category": "Historical Sites",
-    "address": "Area 11, Garki, Abuja, FCT",
-    "description": "Headquarters of federal broadcasting agencies, a city landmark.",
-    "latitude": 9.041632,
-    "longitude": 7.491297,
-    "coord_source": "OpenStreetMap (Nominatim), matched \"Radio House Federal Radio Corporation of Nigeria\" (way/181672567) on 2026-10-15; match reviewed 2026-10-15",
-    "verified": true,
-    "image_url": null
-  },
-  {
-    "name": "Ship House",
-    "category": "Historical Sites",
-    "address": "Central Business District, Abuja, FCT",
-    "description": "Ministry of Defence headquarters, shaped like a ship.",
-    "latitude": 9.044032,
-    "longitude": 7.482497,
-    "coord_source": "OpenStreetMap (Nominatim), matched \"Ship House Abuja\" (way/211555485) on 2026-10-15; match reviewed 2026-10-15",
     "verified": true,
     "image_url": null
   }

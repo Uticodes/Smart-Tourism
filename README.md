@@ -82,7 +82,7 @@ npm run db:setup      # reload with all 50
 
 `data:verify` writes `server/data/verification-report.csv`. Any row marked `CHECK` is more than 300 m from Google's location, and any `FILLED` row should be checked to confirm Google matched the right place. Keep the report: it is evidence for Chapter 4.
 
-`server/data/excluded-outside-fct.json` lists well-known sites left out because they are outside the FCT (Zuma Rock and Gurara Falls are in Niger State).
+`server/data/excluded.json` lists sites left out and why: outside the FCT (Zuma Rock and Gurara Falls, in Niger State), government offices that are not tourist sites, and places whose coordinates could not be confirmed.
 
 ## Demo accounts
 

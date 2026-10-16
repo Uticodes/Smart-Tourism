@@ -1,0 +1,74 @@
+{
+  "outside_fct": [
+    {
+      "name": "Zuma Rock",
+      "state": "Niger State (Suleja LGA)",
+      "latitude": 9.13028,
+      "longitude": 7.23389,
+      "coord_source": "Wikipedia article infobox",
+      "note": "Outside the FCT (Niger State) but inside the approximate FCT bounding box, so the box check accepts it. Documented limitation; a polygon boundary would fix it."
+    },
+    {
+      "name": "Gurara Falls",
+      "state": "Niger State (Gurara LGA)",
+      "latitude": null,
+      "longitude": null,
+      "coord_source": null,
+      "note": "Outside the FCT; excluded."
+    }
+  ],
+  "not_tourist_sites": [
+    {
+      "name": "National Assembly Complex",
+      "reason": "Government office with restricted public access; not a tourist attraction",
+      "latitude": null,
+      "longitude": null
+    },
+    {
+      "name": "Supreme Court of Nigeria",
+      "reason": "Government office with restricted public access; not a tourist attraction",
+      "latitude": 9.061163,
+      "longitude": 7.507645
+    },
+    {
+      "name": "Central Bank of Nigeria Headquarters",
+      "reason": "Government office with restricted public access; not a tourist attraction",
+      "latitude": null,
+      "longitude": null
+    },
+    {
+      "name": "Federal Secretariat Complex",
+      "reason": "Government office with restricted public access; not a tourist attraction",
+      "latitude": null,
+      "longitude": null
+    },
+    {
+      "name": "National Space Research and Development Agency",
+      "reason": "Government office with restricted public access; not a tourist attraction",
+      "latitude": 8.989782,
+      "longitude": 7.387074
+    },
+    {
+      "name": "Radio House",
+      "reason": "Government office with restricted public access; not a tourist attraction",
+      "latitude": 9.041632,
+      "longitude": 7.491297
+    },
+    {
+      "name": "Ship House",
+      "reason": "Government office with restricted public access; not a tourist attraction",
+      "latitude": 9.044032,
+      "longitude": 7.482497
+    }
+  ],
+  "coordinates_not_confirmed": [
+    {
+      "name": "Tomb of the Unknown Soldier",
+      "reason": "Coordinates could not be confirmed: lookups returned the US memorial in Arlington, then a point about 8 km from Eagle Square"
+    },
+    {
+      "name": "National Mathematical Centre",
+      "reason": "Research institution with limited public access; lookups returned city offices rather than the Sheda campus"
+    }
+  ]
+}
