@@ -48,3 +48,12 @@
     @apply inline-flex items-center gap-1.5 rounded-full bg-laterite-50 px-2.5 py-1 text-xs font-semibold text-laterite-600;
   }
 }
+
+/* Leaflet: pins are inline SVG; strip Leaflet's default white box. */
+.map-pin { background: none; border: 0; }
+.user-dot {
+  display: block; width: 20px; height: 20px; border-radius: 9999px;
+  background: #2B6CB0; border: 3px solid #fff; box-shadow: 0 0 0 1px rgba(43, 48, 54, 0.35);
+}
+.leaflet-container { font-family: var(--font-sans); }
+.leaflet-tooltip { font-weight: 600; }

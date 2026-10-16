@@ -12,9 +12,8 @@ The full feature plan is in the build plan document. Each feature (F0 to F13) is
 
 - Node.js 18 or later (`node -v`)
 - MySQL 8.0
-- For maps: a Google Cloud project with billing enabled and these APIs switched on:
-  - Maps JavaScript API (browser key)
-  - Places API (New) (server key, used to verify attraction coordinates)
+- Maps need no key: the map uses OpenStreetMap tiles through Leaflet, and "Get Directions" hands off to Google Maps by link.
+- Optional: a Google Cloud key with Places API (New), only for the `data:verify` cross-check.
 
 ### Installing MySQL on macOS (Homebrew)
 
@@ -113,6 +112,10 @@ Tests run against the separate `smart_tourism_test` database (created in the MyS
 | F0      | Project setup, 8-table schema, seed data                            | Section 3.6  | Haversine unit tests  |
 | F1      | Create account, sign in, sign out (bcrypt + JWT in httpOnly cookie) | FR-01        | TC-AUTH-01 and 5 more |
 | F2      | Choose preferred attraction categories                              | FR-02        | 3 tests               |
+| F3      | Admin: add, edit and deactivate attractions with a map pin; manage categories | FR-09 | TC-ADM-01 and 4 more |
+| F4      | Explore: search 1–50 km from your location or a chosen point, filter by category and rating, list and map | FR-03, FR-05 | TC-SEARCH-01 and 4 more; geo unit tests |
+
+Sign in as the admin (see Demo accounts) and open **Admin** in the top bar to use F3.
 
 ## Known limitation
 

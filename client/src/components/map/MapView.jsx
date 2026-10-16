@@ -1,0 +1,87 @@
+import { useEffect } from 'react';
+import { Circle, MapContainer, Marker, TileLayer, Tooltip, useMap, useMapEvents } from 'react-leaflet';
+import { attractionIcon, userIcon } from './pins.js';
+
+export const ABUJA_CENTRE = { lat: 9.0579, lng: 7.4951, label: 'Abuja city centre' };
+
+// OpenStreetMap tiles. Attribution is required by the OSM tile usage policy.
+const TILE_URL = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
+const ATTRIBUTION = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
+
+/** Moves the map when `center` or `bounds` change, without remounting it. */
+function Viewport({ center, zoom, bounds }) {
+  const map = useMap();
+  useEffect(() => {
+    if (bounds && bounds.length > 1) map.fitBounds(bounds, { padding: [24, 24], maxZoom: 15 });
+    else if (center) map.setView([center.lat, center.lng], zoom ?? map.getZoom());
+  }, [map, center?.lat, center?.lng, zoom, JSON.stringify(bounds)]); // eslint-disable-line react-hooks/exhaustive-deps
+  return null;
+}
+
+function ClickHandler({ onClick }) {
+  useMapEvents({ click: (e) => onClick?.({ lat: e.latlng.lat, lng: e.latlng.lng }) });
+  return null;
+}
+
+/**
+ * Shared map used by Explore (results), the details page and the admin form.
+ * markers: [{ id, lat, lng, name, source }]
+ */
+export default function MapView({
+  center = ABUJA_CENTRE,
+  zoom = 12,
+  markers = [],
+  selectedId,
+  onSelect,
+  userPosition,
+  radiusKm,
+  fitToMarkers = false,
+  bounds: boundsOverride,
+  onMapClick,
+  className = 'h-[420px]',
+  children,
+}) {
+  const bounds = boundsOverride || (fitToMarkers && markers.length
+    ? [
+        ...markers.map((m) => [m.lat, m.lng]),
+        ...(userPosition ? [[userPosition.lat, userPosition.lng]] : []),
+      ]
+    : null);
+
+  return (
+    <div className={`overflow-hidden rounded-lg border border-granite-200 ${className}`}>
+      <MapContainer center={[center.lat, center.lng]} zoom={zoom} zoomSnap={0.25} zoomDelta={0.5} scrollWheelZoom className="h-full w-full">
+        <TileLayer url={TILE_URL} attribution={ATTRIBUTION} maxZoom={19} />
+        <Viewport center={center} zoom={zoom} bounds={bounds} />
+        {onMapClick && <ClickHandler onClick={onMapClick} />}
+
+        {userPosition && radiusKm && (
+          <Circle
+            center={[userPosition.lat, userPosition.lng]}
+            radius={radiusKm * 1000}
+            pathOptions={{ color: '#0A7A4B', weight: 1.5, fillOpacity: 0.05, dashArray: '6 6' }}
+          />
+        )}
+        {userPosition && (
+          <Marker position={[userPosition.lat, userPosition.lng]} icon={userIcon} keyboard={false}>
+            <Tooltip direction="top" offset={[0, -8]}>{userPosition.label || 'Search point'}</Tooltip>
+          </Marker>
+        )}
+
+        {markers.map((m) => (
+          <Marker
+            key={m.id}
+            position={[m.lat, m.lng]}
+            icon={attractionIcon({ source: m.source, selected: m.id === selectedId })}
+            zIndexOffset={m.id === selectedId ? 1000 : 0}
+            eventHandlers={{ click: () => onSelect?.(m.id) }}
+            title={m.name}
+          >
+            <Tooltip direction="top" offset={[0, -24]}>{m.name}</Tooltip>
+          </Marker>
+        ))}
+        {children}
+      </MapContainer>
+    </div>
+  );
+}
