@@ -1,6 +1,7 @@
 # Discover Abuja
 
-Crowdsourced Smart Tourism Recommendation and Navigation System for Unreported Local Attractions (Abuja, FCT). Final-year BSc Computer Science project, Miva Open University.
+Crowdsourced Smart Tourism Recommendation and Navigation System for Unreported Local Attractions (Abuja, FCT).
+Final-year BSc Computer Science project, Miva Open University.
 
 - `server/` holds the Node.js + Express REST API and the MySQL schema.
 - `client/` holds the React 18 + Vite single-page app.
@@ -88,11 +89,11 @@ npm run db:setup      # reload with all 50
 
 Created by `npm run db:setup` (passwords come from `server/.env`):
 
-| Role | Email | Default password |
-| --- | --- | --- |
-| Admin | admin@smarttourism.test | Admin@12345 |
-| Tourist | amina@smarttourism.test | Tourist@12345 |
-| Tourist | chinedu@smarttourism.test | Tourist@12345 |
+| Role    | Email                     | Default password |
+| ------- | ------------------------- | ---------------- |
+| Admin   | admin@smarttourism.test   | Admin@12345      |
+| Tourist | amina@smarttourism.test   | Tourist@12345    |
+| Tourist | chinedu@smarttourism.test | Tourist@12345    |
 
 Change these before the system is deployed online.
 
@@ -107,11 +108,11 @@ Tests run against the separate `smart_tourism_test` database (created in the MyS
 
 ## Features built so far
 
-| Feature | What it does | Requirements | Tests |
-| --- | --- | --- | --- |
-| F0 | Project setup, 8-table schema, seed data | Section 3.6 | Haversine unit tests |
-| F1 | Create account, sign in, sign out (bcrypt + JWT in httpOnly cookie) | FR-01 | TC-AUTH-01 and 5 more |
-| F2 | Choose preferred attraction categories | FR-02 | 3 tests |
+| Feature | What it does                                                        | Requirements | Tests                 |
+| ------- | ------------------------------------------------------------------- | ------------ | --------------------- |
+| F0      | Project setup, 8-table schema, seed data                            | Section 3.6  | Haversine unit tests  |
+| F1      | Create account, sign in, sign out (bcrypt + JWT in httpOnly cookie) | FR-01        | TC-AUTH-01 and 5 more |
+| F2      | Choose preferred attraction categories                              | FR-02        | 3 tests               |
 
 ## Known limitation
 
