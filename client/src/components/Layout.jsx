@@ -4,7 +4,7 @@ import Logo from './Logo.jsx';
 import { useAuth } from '../context/AuthContext.jsx';
 
 const navClass = ({ isActive }) =>
-  `rounded-md px-3 py-2 text-[15px] font-semibold ${
+  `rounded-md px-2 py-2 text-[15px] font-semibold sm:px-3 ${
     isActive ? 'bg-green-50 text-green-700' : 'text-granite-700 hover:bg-granite-100'
   }`;
 
@@ -47,6 +47,9 @@ function UserMenu({ user, onLogout }) {
         <div role="menu" className="absolute right-0 z-20 mt-2 w-56 overflow-hidden rounded-lg border border-granite-200 bg-surface py-1 shadow-lg">
           <p className="truncate px-4 py-2 text-sm text-granite-500">{user.email}</p>
           <Link role="menuitem" to="/preferences" className="block px-4 py-2 text-[15px] hover:bg-granite-100">Your interests</Link>
+          {user.role === 'admin' && (
+            <Link role="menuitem" to="/admin/attractions" className="block px-4 py-2 text-[15px] hover:bg-granite-100">Admin</Link>
+          )}
           <button role="menuitem" type="button" onClick={onLogout} className="block w-full px-4 py-2 text-left text-[15px] hover:bg-granite-100">
             Sign out
           </button>
@@ -68,12 +71,13 @@ export default function Layout() {
   return (
     <div className="flex min-h-screen flex-col">
       <header className="border-b border-granite-200 bg-surface">
-        <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
+        <div className="mx-auto flex max-w-6xl items-center justify-between gap-2 px-4 py-3 sm:gap-4 sm:px-6">
           <Link to="/" aria-label="Discover Abuja home">
             <Logo />
           </Link>
-          <nav aria-label="Main" className="flex items-center gap-1">
-            <NavLink to="/" end className={navClass}>Explore</NavLink>
+          <nav aria-label="Main" className="flex items-center gap-0.5 sm:gap-1">
+            <NavLink to="/explore" className={navClass}>Explore</NavLink>
+            {user?.role === 'admin' && <NavLink to="/admin/attractions" className={navClass}>Admin</NavLink>}
             {!loading && !user && (
               <>
                 <NavLink to="/login" className={navClass}>Sign in</NavLink>

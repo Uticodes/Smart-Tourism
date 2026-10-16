@@ -22,3 +22,22 @@ async function resetDb() {
 }
 
 module.exports = { resetDb };
+
+const bcrypt = require('bcrypt');
+const request = require('supertest');
+
+/** Creates a user directly in the test database and returns a signed-in supertest agent. */
+async function signedInAgent(app, { role = 'tourist', email } = {}) {
+  const { pool } = require('../../src/config/db');
+  const address = email || `${role}-${Date.now()}-${Math.random().toString(36).slice(2, 7)}@example.com`;
+  const hash = await bcrypt.hash('Password@123', 4); // low cost: speed only matters in tests
+  await pool.execute(
+    'INSERT INTO Users (full_name, display_name, email, password_hash, role) VALUES (?, ?, ?, ?, ?)',
+    [`Test ${role}`, role, address, hash, role]
+  );
+  const agent = request.agent(app);
+  await agent.post('/api/auth/login').send({ email: address, password: 'Password@123' }).expect(200);
+  return agent;
+}
+
+module.exports.signedInAgent = signedInAgent;
