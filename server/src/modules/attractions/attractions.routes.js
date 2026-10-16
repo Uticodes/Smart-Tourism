@@ -28,7 +28,7 @@ router.get('/nearby', optionalAuth, validate(nearbyQuery, 'query'), async (req, 
 router.get('/:id', async (req, res, next) => {
   try {
     const id = z.coerce.number().int().positive().parse(req.params.id);
-    res.json({ attraction: await service.getById(id) });
+    res.json({ attraction: await service.getDetails(id) });
   } catch (err) {
     next(err);
   }

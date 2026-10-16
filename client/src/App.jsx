@@ -3,6 +3,7 @@ import Layout from './components/Layout.jsx';
 import ProtectedRoute from './components/ProtectedRoute.jsx';
 import HomePage from './pages/HomePage.jsx';
 import ExplorePage from './pages/ExplorePage.jsx';
+import AttractionPage from './pages/AttractionPage.jsx';
 import LoginPage from './pages/LoginPage.jsx';
 import RegisterPage from './pages/RegisterPage.jsx';
 import PreferencesPage from './pages/PreferencesPage.jsx';
@@ -20,6 +21,7 @@ export default function App() {
       <Route element={<Layout />}>
         <Route index element={<HomePage />} />
         <Route path="explore" element={<ExplorePage />} />
+        <Route path="attractions/:id" element={<AttractionPage />} />
         <Route path="login" element={<LoginPage />} />
         <Route path="register" element={<RegisterPage />} />
         <Route path="preferences" element={signedIn(<PreferencesPage />)} />
