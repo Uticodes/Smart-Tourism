@@ -5,3 +5,9 @@ coverage/
 server/uploads/*
 !server/uploads/.gitkeep
 .DS_Store
+
+# Agent rules and configuration
+AGENTS.md
+CLAUDE.md
+.agents/
+no-co-author.md
