@@ -29,7 +29,9 @@ app.get('/api/health', async (req, res, next) => {
   }
 });
 
-// Feature routers are mounted here as they are built (F1 onwards).
+app.use('/api/auth', require('./modules/auth/auth.routes'));
+app.use('/api/categories', require('./modules/categories/categories.routes'));
+app.use('/api/users', require('./modules/users/users.routes'));
 
 app.use('/api', notFound);
 app.use(errorHandler);

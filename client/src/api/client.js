@@ -17,3 +17,10 @@ export function errorMessage(err) {
 }
 
 export default api;
+
+/** Maps a 400 response's validation details to { fieldName: message }. */
+export function fieldErrors(err) {
+  const details = err.response?.data?.details;
+  if (!Array.isArray(details)) return {};
+  return Object.fromEntries(details.filter((d) => d.path?.length).map((d) => [d.path[0], d.message]));
+}

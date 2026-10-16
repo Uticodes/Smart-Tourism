@@ -103,6 +103,16 @@ cd server
 npm test
 ```
 
+Tests run against the separate `smart_tourism_test` database (created in the MySQL step above). They wipe and recreate it on each run, and refuse to run against any database whose name does not end in `_test`.
+
+## Features built so far
+
+| Feature | What it does | Requirements | Tests |
+| --- | --- | --- | --- |
+| F0 | Project setup, 8-table schema, seed data | Section 3.6 | Haversine unit tests |
+| F1 | Create account, sign in, sign out (bcrypt + JWT in httpOnly cookie) | FR-01 | TC-AUTH-01 and 5 more |
+| F2 | Choose preferred attraction categories | FR-02 | 3 tests |
+
 ## Known limitation
 
 The FCT boundary check uses an approximate rectangle (about 8.3°N to 9.4°N, 6.7°E to 7.7°E). A rectangle includes some land just outside the FCT; for example, Zuma Rock in Niger State falls inside it. A polygon of the real FCT boundary would fix this.
