@@ -1,9 +1,11 @@
 /** An error with an HTTP status that is safe to show to the client. */
 class HttpError extends Error {
-  constructor(status, message, details) {
+  /** `extra` adds fields to the JSON body, e.g. { code: 'DUPLICATE', nearby: {...} }. */
+  constructor(status, message, details, extra) {
     super(message);
     this.status = status;
     this.details = details;
+    this.extra = extra;
   }
 }
 
@@ -21,6 +23,7 @@ function errorHandler(err, req, res, next) {
   res.status(status).json({
     error: status >= 500 ? 'Something went wrong' : err.message,
     ...(err.details ? { details: err.details } : {}),
+    ...(status < 500 && err.extra ? err.extra : {}),
   });
 }
 

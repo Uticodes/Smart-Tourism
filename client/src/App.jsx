@@ -4,6 +4,11 @@ import ProtectedRoute from './components/ProtectedRoute.jsx';
 import HomePage from './pages/HomePage.jsx';
 import ExplorePage from './pages/ExplorePage.jsx';
 import AttractionPage from './pages/AttractionPage.jsx';
+import ReportSitePage from './pages/ReportSitePage.jsx';
+import MyReportsPage from './pages/MyReportsPage.jsx';
+import CommunityPage from './pages/CommunityPage.jsx';
+import AdminReportsPage from './pages/admin/AdminReportsPage.jsx';
+import AdminReportPage from './pages/admin/AdminReportPage.jsx';
 import LoginPage from './pages/LoginPage.jsx';
 import RegisterPage from './pages/RegisterPage.jsx';
 import PreferencesPage from './pages/PreferencesPage.jsx';
@@ -25,10 +30,15 @@ export default function App() {
         <Route path="login" element={<LoginPage />} />
         <Route path="register" element={<RegisterPage />} />
         <Route path="preferences" element={signedIn(<PreferencesPage />)} />
+        <Route path="report" element={signedIn(<ReportSitePage />)} />
+        <Route path="reports/mine" element={signedIn(<MyReportsPage />)} />
+        <Route path="community" element={signedIn(<CommunityPage />)} />
         <Route path="admin/attractions" element={adminOnly(<AdminAttractionsPage />)} />
         <Route path="admin/attractions/new" element={adminOnly(<AttractionFormPage />)} />
         <Route path="admin/attractions/:id" element={adminOnly(<AttractionFormPage />)} />
         <Route path="admin/categories" element={adminOnly(<AdminCategoriesPage />)} />
+        <Route path="admin/reports" element={adminOnly(<AdminReportsPage />)} />
+        <Route path="admin/reports/:id" element={adminOnly(<AdminReportPage />)} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>

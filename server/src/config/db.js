@@ -11,6 +11,10 @@ const pool = mysql.createPool({
   timezone: 'Z',
 });
 
+// Store and compare every DATETIME in UTC, whatever time zone the MySQL server runs in,
+// so CURRENT_TIMESTAMP defaults and UTC_TIMESTAMP() comparisons always agree.
+pool.pool.on('connection', (conn) => conn.query("SET time_zone = '+00:00'"));
+
 /** Run fn(connection) inside a transaction; commits on success, rolls back on error. */
 async function withTransaction(fn) {
   const conn = await pool.getConnection();

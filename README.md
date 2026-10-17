@@ -116,8 +116,13 @@ Tests run against the separate `smart_tourism_test` database (created in the MyS
 | F4      | Explore: search 1–50 km from your location or a chosen point, filter by category and rating, list and map | FR-03, FR-05 | TC-SEARCH-01 and 4 more; geo unit tests |
 | F5      | Home page recommendations: score = 0.4 × category match + 0.3 × rating + 0.3 × proximity, list or map; logs which result was opened (for MRR) | FR-04 | TC-REC-01 and 6 more; scoring unit tests |
 | F6      | Attraction details page with photos, description, map and **Get directions** (opens Google Maps) | FR-05, FR-06, FR-07 | TC-NAV-01 and 2 more; directions unit tests |
+| F7      | **Add a place**: report an unlisted site with photos (EXIF/GPS stripped), FCT boundary check, 150 m duplicate warning, 5 reports a day; **Your reports** with status and admin notes | FR-11, FR-12, FR-15 | TC-REP-01 to 03 and 6 more |
+| F8      | **Community**: nearby unverified reports; confirm or flag (with a reason). 3 confirmations → under review; 3+ flags outnumbering confirmations → hidden | FR-13 | TC-REP-04 and 3 more; status-rule unit tests |
+| F9      | **Admin review queue**: photos, map with the nearest existing place, community responses; approve (publishes with the Community-discovered badge, in one transaction), reject with a reason, or ask for more information | FR-14 | TC-REP-05 and 4 more |
 
-Sign in as the admin (see Demo accounts) and open **Admin** in the top bar to use F3.
+Sign in as the admin (see Demo accounts) and open **Admin** in the top bar to use F3 and F9.
+
+To try the reporting flow (F7 to F9): sign in as Amina and use **Add a place**; sign in as Chinedu and open **Community** to confirm it (people cannot confirm their own reports); then sign in as the admin and open **Admin → Review queue**. Report photos are saved in `server/uploads/reports/`, which git ignores.
 
 ## Known limitation
 

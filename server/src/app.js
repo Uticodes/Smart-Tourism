@@ -3,7 +3,6 @@ const helmet = require('helmet');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
-const path = require('path');
 
 const env = require('./config/env');
 const { pool } = require('./config/db');
@@ -18,7 +17,7 @@ app.use(cookieParser());
 if (env.nodeEnv !== 'test') app.use(morgan('dev'));
 
 // Uploaded report photos (re-encoded, EXIF stripped) are served read-only.
-app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
+app.use('/uploads', express.static(env.uploadDir, { fallthrough: false, index: false }));
 
 app.get('/api/health', async (req, res, next) => {
   try {
@@ -36,6 +35,8 @@ app.use('/api/attractions', require('./modules/attractions/attractions.routes'))
 app.use('/api/recommendations', require('./modules/recommendations/recommendations.routes'));
 app.use('/api/admin/attractions', require('./modules/attractions/attractions.admin.routes'));
 app.use('/api/admin/categories', require('./modules/categories/categories.admin.routes'));
+app.use('/api/reports', require('./modules/reports/reports.routes'));
+app.use('/api/admin/reports', require('./modules/reports/reports.admin.routes'));
 
 app.use('/api', notFound);
 app.use(errorHandler);

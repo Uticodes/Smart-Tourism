@@ -26,4 +26,17 @@ function withinRadius(rows, lat, lng, radiusKm) {
     .sort((a, b) => a.distance_km - b.distance_km);
 }
 
-module.exports = { insideFCT, boundingBox, withinRadius, ABUJA_CENTRE: { lat: 9.0579, lng: 7.4951 } };
+/**
+ * The closest row to a point within `metres`, or null. Rows need latitude and longitude.
+ * Used by the duplicate check for site reports (FR-12): anything within 150 m may be the same place.
+ */
+function nearestWithin(rows, lat, lng, metres) {
+  let best = null;
+  for (const r of rows) {
+    const m = haversineKm(lat, lng, Number(r.latitude), Number(r.longitude)) * 1000;
+    if (m <= metres && (!best || m < best.distance_m)) best = { row: r, distance_m: Math.round(m * 10) / 10 };
+  }
+  return best;
+}
+
+module.exports = { insideFCT, boundingBox, withinRadius, nearestWithin, ABUJA_CENTRE: { lat: 9.0579, lng: 7.4951 } };
