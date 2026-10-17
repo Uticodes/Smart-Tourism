@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import MapView from '../components/map/MapView.jsx';
 import Stars from '../components/Stars.jsx';
 import CategoryArt from '../components/CategoryArt.jsx';
+import ReviewsSection from '../components/reviews/ReviewsSection.jsx';
 import { fetchAttraction } from '../api/attractions.js';
 import { errorMessage } from '../api/client.js';
 import { formatDate, km } from '../lib/format.js';
@@ -87,6 +88,8 @@ export default function AttractionPage() {
   }
 
   const a = state.attraction;
+  // Keep the header stars in step when the visitor adds, edits or deletes their review.
+  const onSummary = (summary) => setState((s) => ({ ...s, attraction: { ...s.attraction, avg_rating: summary.avg_rating, review_count: summary.count } }));
   const point = { lat: Number(a.latitude), lng: Number(a.longitude) };
   const community = a.source === 'community';
   const distance = origin ? haversineKm(origin, point) : null;
@@ -130,19 +133,7 @@ export default function AttractionPage() {
             </p>
           </section>
 
-          <section className="mt-8" aria-labelledby="reviews">
-            <div className="flex items-baseline justify-between gap-3">
-              <h2 id="reviews" className="text-xl">Reviews</h2>
-              {a.review_count > 0 && <Stars value={a.avg_rating} count={a.review_count} />}
-            </div>
-            {a.review_count ? (
-              <p className="mt-2 text-granite-700">{a.review_count} {a.review_count === 1 ? 'review' : 'reviews'}.</p>
-            ) : (
-              <p className="mt-2 rounded-lg border border-dashed border-granite-200 p-5 text-granite-700">
-                Nobody has reviewed this place yet.
-              </p>
-            )}
-          </section>
+          <ReviewsSection attractionId={a.attraction_id} onSummary={onSummary} />
         </div>
 
         <aside className="lg:sticky lg:top-4 lg:self-start">

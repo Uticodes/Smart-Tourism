@@ -119,8 +119,10 @@ Tests run against the separate `smart_tourism_test` database (created in the MyS
 | F7      | **Add a place**: report an unlisted site with photos (EXIF/GPS stripped), FCT boundary check, 150 m duplicate warning, 5 reports a day; **Your reports** with status and admin notes | FR-11, FR-12, FR-15 | TC-REP-01 to 03 and 6 more |
 | F8      | **Community**: nearby unverified reports; confirm or flag (with a reason). 3 confirmations → under review; 3+ flags outnumbering confirmations → hidden | FR-13 | TC-REP-04 and 3 more; status-rule unit tests |
 | F9      | **Admin review queue**: photos, map with the nearest existing place, community responses; approve (publishes with the Community-discovered badge, in one transaction), reject with a reason, or ask for more information | FR-14 | TC-REP-05 and 4 more |
+| F10     | Reviews: 1–5 stars and an optional comment, one per visitor per place (edit or delete it); average recalculated in the same transaction; star breakdown on the details page | FR-08 | 5 tests |
+| F11     | **Admin → Analytics**: searches per day, MRR and where opened results ranked, categories searched, report pipeline (approval rate, time to decision, near-duplicates), top-rated (Bayesian-weighted) and most-opened places; 7/30/90 days or all time, Abuja time | FR-10 | 6 tests |
 
-Sign in as the admin (see Demo accounts) and open **Admin** in the top bar to use F3 and F9.
+Sign in as the admin (see Demo accounts) and open **Admin** in the top bar to use F3, F9 and F11.
 
 To try the reporting flow (F7 to F9): sign in as Amina and use **Add a place**; sign in as Chinedu and open **Community** to confirm it (people cannot confirm their own reports); then sign in as the admin and open **Admin → Review queue**. Report photos are saved in `server/uploads/reports/`, which git ignores.
 
