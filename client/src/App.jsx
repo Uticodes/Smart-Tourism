@@ -9,6 +9,7 @@ import MyReportsPage from './pages/MyReportsPage.jsx';
 import CommunityPage from './pages/CommunityPage.jsx';
 import AdminReportsPage from './pages/admin/AdminReportsPage.jsx';
 import AdminReportPage from './pages/admin/AdminReportPage.jsx';
+import AdminAnalyticsPage from './pages/admin/AdminAnalyticsPage.jsx';
 import LoginPage from './pages/LoginPage.jsx';
 import RegisterPage from './pages/RegisterPage.jsx';
 import PreferencesPage from './pages/PreferencesPage.jsx';
@@ -39,6 +40,7 @@ export default function App() {
         <Route path="admin/categories" element={adminOnly(<AdminCategoriesPage />)} />
         <Route path="admin/reports" element={adminOnly(<AdminReportsPage />)} />
         <Route path="admin/reports/:id" element={adminOnly(<AdminReportPage />)} />
+        <Route path="admin/analytics" element={adminOnly(<AdminAnalyticsPage />)} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>
