@@ -46,9 +46,12 @@ function UserMenu({ user, onLogout }) {
       {open && (
         <div role="menu" className="absolute right-0 z-20 mt-2 w-56 overflow-hidden rounded-lg border border-granite-200 bg-surface py-1 shadow-lg">
           <p className="truncate px-4 py-2 text-sm text-granite-500">{user.email}</p>
+          <Link role="menuitem" to="/report" className="block px-4 py-2 text-[15px] hover:bg-granite-100">Add a place</Link>
+          <Link role="menuitem" to="/reports/mine" className="block px-4 py-2 text-[15px] hover:bg-granite-100">Your reports</Link>
+          <Link role="menuitem" to="/community" className="block px-4 py-2 text-[15px] hover:bg-granite-100 sm:hidden">Check new places</Link>
           <Link role="menuitem" to="/preferences" className="block px-4 py-2 text-[15px] hover:bg-granite-100">Your interests</Link>
           {user.role === 'admin' && (
-            <Link role="menuitem" to="/admin/attractions" className="block px-4 py-2 text-[15px] hover:bg-granite-100">Admin</Link>
+            <Link role="menuitem" to="/admin/reports" className="block px-4 py-2 text-[15px] hover:bg-granite-100">Admin</Link>
           )}
           <button role="menuitem" type="button" onClick={onLogout} className="block w-full px-4 py-2 text-left text-[15px] hover:bg-granite-100">
             Sign out
@@ -62,6 +65,7 @@ function UserMenu({ user, onLogout }) {
 export default function Layout() {
   const { user, loading, logout } = useAuth();
   const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   async function onLogout() {
     await logout();
@@ -77,7 +81,9 @@ export default function Layout() {
           </Link>
           <nav aria-label="Main" className="flex items-center gap-0.5 sm:gap-1">
             <NavLink to="/explore" className={navClass}>Explore</NavLink>
-            {user?.role === 'admin' && <NavLink to="/admin/attractions" className={navClass}>Admin</NavLink>}
+            {user && <NavLink to="/community" className={(a) => `${navClass(a)} hidden sm:inline-flex`}>Community</NavLink>}
+            {user?.role === 'admin' && <NavLink to="/admin/reports" className={({ isActive }) => navClass({ isActive: isActive || pathname.startsWith('/admin') })}>Admin</NavLink>}
+            {user && <Link to="/report" className="btn-primary mx-1 hidden !py-2 md:inline-flex">Add a place</Link>}
             {!loading && !user && (
               <>
                 <NavLink to="/login" className={navClass}>Sign in</NavLink>

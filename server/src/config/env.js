@@ -24,6 +24,8 @@ const env = {
     secret: required('JWT_SECRET'),
     expiresIn: process.env.JWT_EXPIRES_IN || '1d',
   },
+  // Where re-encoded report photos are saved; served read-only at /uploads.
+  uploadDir: process.env.UPLOAD_DIR || path.join(__dirname, '../../uploads'),
   fct: {
     minLat: Number(process.env.FCT_MIN_LAT || 8.3),
     maxLat: Number(process.env.FCT_MAX_LAT || 9.4),

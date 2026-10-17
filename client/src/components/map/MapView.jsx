@@ -9,12 +9,12 @@ const TILE_URL = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
 const ATTRIBUTION = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
 
 /** Moves the map when `center` or `bounds` change, without remounting it. */
-function Viewport({ center, zoom, bounds }) {
+function Viewport({ center, zoom, bounds, maxZoom = 15 }) {
   const map = useMap();
   useEffect(() => {
-    if (bounds && bounds.length > 1) map.fitBounds(bounds, { padding: [44, 44], maxZoom: 15 });
+    if (bounds && bounds.length > 1) map.fitBounds(bounds, { padding: [44, 44], maxZoom });
     else if (center) map.setView([center.lat, center.lng], zoom ?? map.getZoom());
-  }, [map, center?.lat, center?.lng, zoom, JSON.stringify(bounds)]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [map, center?.lat, center?.lng, zoom, maxZoom, JSON.stringify(bounds)]); // eslint-disable-line react-hooks/exhaustive-deps
   return null;
 }
 
@@ -40,6 +40,7 @@ export default function MapView({
   bounds: boundsOverride,
   onMapClick,
   renderPopup,
+  fitMaxZoom,
   className = 'h-[420px]',
   children,
 }) {
@@ -54,7 +55,7 @@ export default function MapView({
     <div className={`overflow-hidden rounded-lg border border-granite-200 ${className}`}>
       <MapContainer center={[center.lat, center.lng]} zoom={zoom} zoomSnap={0.25} zoomDelta={0.5} scrollWheelZoom className="h-full w-full">
         <TileLayer url={TILE_URL} attribution={ATTRIBUTION} maxZoom={19} />
-        <Viewport center={center} zoom={zoom} bounds={bounds} />
+        <Viewport center={center} zoom={zoom} bounds={bounds} maxZoom={fitMaxZoom} />
         {onMapClick && <ClickHandler onClick={onMapClick} />}
 
         {userPosition && radiusKm && (

@@ -88,7 +88,11 @@ export default function HomePage() {
         </p>
         <div className="mt-8 flex flex-wrap gap-3">
           <Link to="/explore" className="btn-primary">Explore attractions near you</Link>
-          {!user && <Link to="/register" className="btn-quiet">Create an account</Link>}
+          {user ? (
+            <Link to="/report" className="btn-quiet">Add a place that isn’t on the map</Link>
+          ) : (
+            <Link to="/register" className="btn-quiet">Create an account</Link>
+          )}
         </div>
       </section>
 
