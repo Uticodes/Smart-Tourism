@@ -26,7 +26,10 @@
 }
 
 @layer base {
-  html { color-scheme: light; }
+  html {
+    color-scheme: light;
+    scroll-padding-top: 5rem;
+  }
   body {
     @apply bg-paper text-granite-900 font-sans antialiased;
     font-feature-settings: "ss01";
@@ -51,9 +54,72 @@
 
 /* Leaflet: pins are inline SVG; strip Leaflet's default white box. */
 .map-pin { background: none; border: 0; }
+.map-pin svg {
+  filter: drop-shadow(0 2px 4px rgba(43, 48, 54, 0.25));
+  transition: transform 0.15s ease-out;
+}
+.map-pin:hover svg {
+  transform: scale(1.1) translateY(-2px);
+}
+
+.map-pin-selected {
+  z-index: 1000 !important;
+}
+.map-pin-selected .pin-beacon {
+  position: absolute;
+  left: 50%;
+  bottom: 2px;
+  transform: translateX(-50%);
+  width: 26px;
+  height: 10px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, var(--beacon-color, rgba(10, 122, 75, 0.5)) 0%, transparent 75%);
+  animation: pin-beacon-pulse 2s infinite ease-out;
+  pointer-events: none;
+}
+.map-pin-selected .pin-svg {
+  animation: pin-standup 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  transform-origin: 22px 50px;
+  filter: drop-shadow(0 8px 14px rgba(43, 48, 54, 0.4));
+}
+.map-pin-selected:hover .pin-svg {
+  transform: scale(1.05) translateY(-2px);
+}
+
+@keyframes pin-standup {
+  0% { transform: scale(0.65) translateY(12px); }
+  65% { transform: scale(1.15) translateY(-6px); }
+  100% { transform: scale(1) translateY(0); }
+}
+
+@keyframes pin-beacon-pulse {
+  0% { transform: translateX(-50%) scale(0.6); opacity: 0.9; }
+  70% { transform: translateX(-50%) scale(2.2); opacity: 0; }
+  100% { transform: translateX(-50%) scale(2.5); opacity: 0; }
+}
+
+.selected-tooltip {
+  background-color: var(--color-granite-900) !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  border-radius: 6px !important;
+  padding: 4px 10px !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  line-height: 1.25 !important;
+  max-width: 220px !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+}
+.selected-tooltip::before {
+  border-top-color: var(--color-granite-900) !important;
+}
+
 .user-dot {
   display: block; width: 20px; height: 20px; border-radius: 9999px;
   background: #2B6CB0; border: 3px solid #fff; box-shadow: 0 0 0 1px rgba(43, 48, 54, 0.35);
 }
-.leaflet-container { font-family: var(--font-sans); }
+.leaflet-container { font-family: var(--font-sans); isolation: isolate; }
 .leaflet-tooltip { font-weight: 600; }

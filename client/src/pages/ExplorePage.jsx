@@ -1,3 +1,4 @@
+import PlaceSearch from '../components/PlaceSearch.jsx';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import MapView, { ABUJA_CENTRE } from '../components/map/MapView.jsx';
@@ -20,6 +21,10 @@ export default function ExplorePage() {
   const [minRating, setMinRating] = useState(0);
   const [categories, setCategories] = useState([]);
   const [results, setResults] = useState({ loading: true, error: '', items: [] });
+  const [query, setQuery] = useState('');
+  const searchTerm = query.trim().toLocaleLowerCase();
+  const visibleItems = results.items.filter((a) => a.name.toLocaleLowerCase().includes(searchTerm));
+
   const [selectedId, setSelectedId] = useState(null);
   const [view, setView] = useState('list'); // mobile only
   const itemRefs = useRef({});
@@ -58,8 +63,8 @@ export default function ExplorePage() {
   }, [origin.lat, origin.lng, debouncedRadius, category, minRating]);
 
   const markers = useMemo(
-    () => results.items.map((a) => ({ id: a.attraction_id, lat: Number(a.latitude), lng: Number(a.longitude), name: a.name, source: a.source })),
-    [results.items]
+    () => visibleItems.map((a) => ({ id: a.attraction_id, lat: Number(a.latitude), lng: Number(a.longitude), name: a.name, source: a.source })),
+    [visibleItems]
   );
 
   // Frame the whole search circle (south-west and north-east corners of its bounding box).
@@ -71,8 +76,14 @@ export default function ExplorePage() {
 
   function select(id) {
     setSelectedId(id);
-    itemRefs.current[id]?.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+    setView('list');
   }
+
+  useEffect(() => {
+    if (view === 'list' && selectedId !== null) {
+      itemRefs.current[selectedId]?.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+    }
+  }, [selectedId, view]);
 
   function onMapClick(p) {
     if (!picking) return;
@@ -88,7 +99,7 @@ export default function ExplorePage() {
   const label = 'mb-1 block text-sm font-semibold text-granite-700';
 
   return (
-    <section className="mx-auto max-w-6xl px-4 py-8 sm:px-6">
+    <section className="mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:flex lg:h-full lg:min-h-0 lg:flex-col">
       <h1 className="text-3xl">
         {origin.label === 'Your location' ? 'Explore near you' : origin.label === 'Chosen point' ? 'Explore around your chosen point' : 'Explore around Abuja city centre'}
       </h1>
@@ -135,19 +146,20 @@ export default function ExplorePage() {
         <p role="status" className="mt-3 rounded-md bg-laterite-50 px-4 py-2.5 text-sm text-laterite-600">{notice || geo.error}</p>
       )}
 
+      <PlaceSearch value={query} onChange={setQuery} />
       <div className="mt-4 flex gap-2 lg:hidden" role="tablist" aria-label="Results view">
         {['list', 'map'].map((v) => (
           <button key={v} role="tab" aria-selected={view === v} type="button" onClick={() => setView(v)}
             className={`flex-1 rounded-md px-3 py-2 text-sm font-semibold ${view === v ? 'bg-granite-900 text-white' : 'bg-granite-100 text-granite-700'}`}>
-            {v === 'list' ? `List (${results.items.length})` : 'Map'}
+            {v === 'list' ? `List (${visibleItems.length})` : 'Map'}
           </button>
         ))}
       </div>
 
-      <div className="mt-4 grid gap-5 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]">
-        <div className={`${view === 'map' ? 'hidden lg:block' : ''}`}>
+      <div className="mt-4 grid grid-cols-1 gap-5 lg:min-h-0 lg:flex-1 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]">
+        <div className={`min-w-0 lg:min-h-0 lg:flex-col ${view === 'map' ? 'hidden lg:flex' : 'lg:flex'}`}>
           <p className="mb-3 text-sm text-granite-500" aria-live="polite">
-            {results.loading ? 'Searching…' : `${results.items.length} ${results.items.length === 1 ? 'place' : 'places'} within ${debouncedRadius} km, nearest first`}
+            {results.loading ? 'Searching…' : `${visibleItems.length} ${visibleItems.length === 1 ? 'place' : 'places'} within ${debouncedRadius} km, nearest first`}
           </p>
           {results.error && <p role="alert" className="text-danger">{results.error}</p>}
           {!results.loading && !results.error && results.items.length === 0 && (
@@ -156,8 +168,11 @@ export default function ExplorePage() {
               <p className="mt-1 text-granite-700">Increase the distance, clear the filters, or move the search point.</p>
             </div>
           )}
-          <ul className="space-y-2 lg:max-h-[560px] lg:overflow-y-auto lg:pr-1">
-            {results.items.map((a) => {
+          {!results.loading && !results.error && results.items.length > 0 && visibleItems.length === 0 && (
+            <p role="status" className="my-4 text-granite-700">No places match “{query.trim()}”. Try another name or clear the search.</p>
+          )}
+          <ul className="space-y-2 p-1 lg:min-h-0 lg:flex-1 lg:overflow-y-auto lg:overscroll-contain">
+            {visibleItems.map((a) => {
               const on = a.attraction_id === selectedId;
               return (
                 <li key={a.attraction_id} ref={(el) => { itemRefs.current[a.attraction_id] = el; }}>
@@ -169,7 +184,7 @@ export default function ExplorePage() {
                       className="w-full p-4 text-left"
                     >
                       <span className="flex items-start justify-between gap-3">
-                        <span className="font-semibold">{a.name}</span>
+                        <span className="min-w-0 break-words font-semibold">{a.name}</span>
                         <span className="shrink-0 text-sm font-semibold text-granite-700">{km(a.distance_km)}</span>
                       </span>
                       <span className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-granite-700">
@@ -197,7 +212,7 @@ export default function ExplorePage() {
           </ul>
         </div>
 
-        <div className={`${view === 'list' ? 'hidden lg:block' : ''} lg:sticky lg:top-4 lg:self-start`}>
+        <div className={`${view === 'list' ? 'hidden lg:block' : ''} lg:min-h-0`}>
           <MapView
             center={origin}
             markers={markers}
@@ -207,7 +222,7 @@ export default function ExplorePage() {
             radiusKm={debouncedRadius}
             bounds={picking ? null : circleBounds}
             onMapClick={onMapClick}
-            className={`h-[480px] lg:h-[600px] ${picking ? 'cursor-crosshair ring-2 ring-green-600' : ''}`}
+            className={`h-[480px] lg:h-full ${picking ? 'cursor-crosshair ring-2 ring-green-600' : ''}`}
           />
         </div>
       </div>

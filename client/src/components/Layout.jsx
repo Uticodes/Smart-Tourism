@@ -73,8 +73,8 @@ export default function Layout() {
   }
 
   return (
-    <div className="flex min-h-screen flex-col">
-      <header className="border-b border-granite-200 bg-surface">
+    <div className={`flex flex-col ${pathname === '/explore' ? 'fixed inset-0 overflow-clip' : 'min-h-screen'}`}>
+      <header className="sticky top-0 z-40 shrink-0 border-b border-granite-200 bg-surface">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-2 px-4 py-3 sm:gap-4 sm:px-6">
           <Link to="/" aria-label="Discover Abuja home">
             <Logo />
@@ -95,11 +95,11 @@ export default function Layout() {
         </div>
       </header>
 
-      <main className="flex-1">
+      <main className={`flex-1 ${pathname === '/explore' ? 'min-h-0 overflow-y-auto overscroll-contain lg:overflow-clip' : ''}`}>
         <Outlet />
       </main>
 
-      <footer className="border-t border-granite-200 bg-surface">
+      <footer className="shrink-0 border-t border-granite-200 bg-surface">
         <div className="mx-auto max-w-6xl px-4 py-5 text-sm text-granite-500 sm:px-6">
           Attractions across the Federal Capital Territory, including places reported and confirmed by residents.
         </div>
