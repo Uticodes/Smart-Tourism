@@ -12,8 +12,17 @@ const ATTRIBUTION = '&copy; <a href="https://www.openstreetmap.org/copyright">Op
 function Viewport({ center, zoom, bounds, maxZoom = 15 }) {
   const map = useMap();
   useEffect(() => {
-    if (bounds && bounds.length > 1) map.fitBounds(bounds, { padding: [44, 44], maxZoom });
-    else if (center) map.setView([center.lat, center.lng], zoom ?? map.getZoom());
+    const update = () => {
+      const container = map.getContainer();
+      if (!container.clientWidth || !container.clientHeight) return;
+      map.invalidateSize();
+      if (bounds && bounds.length > 1) map.fitBounds(bounds, { padding: [44, 44], maxZoom });
+      else if (center) map.setView([center.lat, center.lng], zoom ?? map.getZoom());
+    };
+    update();
+    const observer = new ResizeObserver(update);
+    observer.observe(map.getContainer());
+    return () => observer.disconnect();
   }, [map, center?.lat, center?.lng, zoom, maxZoom, JSON.stringify(bounds)]); // eslint-disable-line react-hooks/exhaustive-deps
   return null;
 }
@@ -71,22 +80,33 @@ export default function MapView({
           </Marker>
         )}
 
-        {markers.map((m) => (
-          <Marker
-            key={m.id}
-            position={[m.lat, m.lng]}
-            icon={attractionIcon({ source: m.source, selected: m.id === selectedId })}
-            zIndexOffset={m.id === selectedId ? 1000 : 0}
-            eventHandlers={{ click: () => onSelect?.(m.id) }}
-            title={m.name}
-          >
-            {renderPopup ? (
-              <Popup offset={[0, -18]}>{renderPopup(m)}</Popup>
-            ) : (
-              <Tooltip direction="top" offset={[0, -24]}>{m.name}</Tooltip>
-            )}
-          </Marker>
-        ))}
+        {markers.map((m) => {
+          const isSelected = m.id === selectedId;
+          return (
+            <Marker
+              key={m.id}
+              position={[m.lat, m.lng]}
+              icon={attractionIcon({ source: m.source, selected: isSelected })}
+              zIndexOffset={isSelected ? 1000 : 0}
+              eventHandlers={{ click: () => onSelect?.(m.id) }}
+              title={m.name}
+            >
+              {renderPopup ? (
+                <Popup offset={[0, -18]}>{renderPopup(m)}</Popup>
+              ) : (
+                <Tooltip
+                  key={`${m.id}-${isSelected}`}
+                  direction="top"
+                  offset={[0, isSelected ? -52 : -24]}
+                  permanent={isSelected}
+                  className={isSelected ? 'selected-tooltip' : ''}
+                >
+                  {m.name}
+                </Tooltip>
+              )}
+            </Marker>
+          );
+        })}
         {children}
       </MapContainer>
     </div>

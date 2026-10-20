@@ -1,3 +1,4 @@
+import PlaceSearch from '../components/PlaceSearch.jsx';
 import { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import StatusBadge from '../components/StatusBadge.jsx';
@@ -105,6 +106,10 @@ export default function MyReportsPage() {
       .catch((err) => setState({ loading: false, error: errorMessage(err), reports: [] }));
   }, []);
 
+  const [query, setQuery] = useState('');
+  const searchTerm = query.trim().toLocaleLowerCase();
+  const visibleReports = state.reports.filter((r) => [r.site_name, r.local_name].filter(Boolean).join(' ').toLocaleLowerCase().includes(searchTerm));
+
   const replace = (updated) => setState((s) => ({ ...s, reports: s.reports.map((r) => (r.report_id === updated.report_id ? { ...r, ...updated } : r)) }));
 
   return (
@@ -118,6 +123,7 @@ export default function MyReportsPage() {
           Thank you. “{submitted}” has been sent. People nearby can now confirm it, and an administrator will review it.
         </p>
       )}
+      <PlaceSearch value={query} onChange={setQuery} />
       {state.error && <p role="alert" className="mt-5 text-danger">{state.error}</p>}
       {state.loading && <p className="mt-6 text-granite-500">Loading…</p>}
       {!state.loading && !state.error && state.reports.length === 0 && (
@@ -126,8 +132,11 @@ export default function MyReportsPage() {
           <p className="mt-1 text-granite-700">Know somewhere worth visiting that isn’t on the map? Add it so others can find it.</p>
         </div>
       )}
+      {!state.loading && !state.error && state.reports.length > 0 && visibleReports.length === 0 && (
+        <p role="status" className="my-4 text-granite-700">No places match “{query.trim()}”. Try another name or clear the search.</p>
+      )}
       <ul className="mt-6 space-y-3">
-        {state.reports.map((r) => <ReportCard key={r.report_id} report={r} onChange={replace} />)}
+        {visibleReports.map((r) => <ReportCard key={r.report_id} report={r} onChange={replace} />)}
       </ul>
     </section>
   );

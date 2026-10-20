@@ -167,7 +167,7 @@ export default function AdminReportPage() {
           </section>
         </div>
 
-        <aside className="space-y-6 lg:sticky lg:top-4 lg:self-start">
+        <aside className="space-y-6 lg:sticky lg:top-20 lg:self-start">
           <div>
             <MapView center={point} zoom={16} markers={markers} fitToMarkers={Boolean(report.nearest)} fitMaxZoom={18} className="h-[300px]">
               {report.nearest && (

@@ -136,7 +136,7 @@ export default function AttractionPage() {
           <ReviewsSection attractionId={a.attraction_id} onSummary={onSummary} />
         </div>
 
-        <aside className="lg:sticky lg:top-4 lg:self-start">
+        <aside className="lg:sticky lg:top-20 lg:self-start">
           <div className="rounded-lg border border-granite-200 bg-surface p-5">
             <h2 className="text-lg">Getting there</h2>
             {a.address && <p className="mt-1 text-granite-700">{a.address}</p>}

@@ -1,3 +1,4 @@
+import PlaceSearch from '../components/PlaceSearch.jsx';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import MapView, { ABUJA_CENTRE } from '../components/map/MapView.jsx';
@@ -130,6 +131,10 @@ export default function CommunityPage() {
   const [notice, setNotice] = useState('');
   const [radius, setRadius] = useState(25);
   const [state, setState] = useState({ loading: true, error: '', reports: [] });
+  const [query, setQuery] = useState('');
+  const searchTerm = query.trim().toLocaleLowerCase();
+  const visibleReports = state.reports.filter((r) => [r.site_name, r.local_name].filter(Boolean).join(' ').toLocaleLowerCase().includes(searchTerm));
+
   const [selectedId, setSelectedId] = useState(null);
   const [view, setView] = useState('list');
   const refs = useRef({});
@@ -155,8 +160,8 @@ export default function CommunityPage() {
   }, [origin.lat, origin.lng, radius]);
 
   const markers = useMemo(
-    () => state.reports.map((r) => ({ id: r.report_id, lat: Number(r.latitude), lng: Number(r.longitude), name: `Unverified: ${r.site_name}`, source: 'pending' })),
-    [state.reports]
+    () => visibleReports.map((r) => ({ id: r.report_id, lat: Number(r.latitude), lng: Number(r.longitude), name: `Unverified: ${r.site_name}`, source: 'pending' })),
+    [visibleReports]
   );
 
   function onResponded(id, result) {
@@ -201,11 +206,12 @@ export default function CommunityPage() {
       </div>
       {(notice || geo.error) && <p role="status" className="mt-3 rounded-md bg-laterite-50 px-4 py-2.5 text-sm text-laterite-600">{notice || geo.error}</p>}
 
+      <PlaceSearch value={query} onChange={setQuery} />
       <div className="mt-4 flex gap-2 lg:hidden" role="tablist" aria-label="View">
         {['list', 'map'].map((v) => (
           <button key={v} role="tab" aria-selected={view === v} type="button" onClick={() => setView(v)}
             className={`flex-1 rounded-md px-3 py-2 text-sm font-semibold ${view === v ? 'bg-granite-900 text-white' : 'bg-granite-100 text-granite-700'}`}>
-            {v === 'list' ? `List (${state.reports.length})` : 'Map'}
+            {v === 'list' ? `List (${visibleReports.length})` : 'Map'}
           </button>
         ))}
       </div>
@@ -220,14 +226,17 @@ export default function CommunityPage() {
               <p className="mt-1 text-granite-700">Try a larger distance. Your own reports are not shown here, because people cannot confirm their own reports.</p>
             </div>
           )}
+          {!state.loading && !state.error && state.reports.length > 0 && visibleReports.length === 0 && (
+            <p role="status" className="my-4 text-granite-700">No places match “{query.trim()}”. Try another name or clear the search.</p>
+          )}
           <ul className="space-y-3">
-            {state.reports.map((r) => (
+            {visibleReports.map((r) => (
               <ReportItem key={r.report_id} report={r} selected={r.report_id === selectedId} onSelect={setSelectedId}
                 onResponded={onResponded} itemRef={(el) => { refs.current[r.report_id] = el; }} />
             ))}
           </ul>
         </div>
-        <div className={`${view === 'list' ? 'hidden lg:block' : ''} lg:sticky lg:top-4 lg:self-start`}>
+        <div className={`${view === 'list' ? 'hidden lg:block' : ''} lg:sticky lg:top-20 lg:self-start`}>
           <MapView center={origin} markers={markers} selectedId={selectedId} onSelect={select} userPosition={origin}
             fitToMarkers={markers.length > 0} zoom={11} className="h-[480px] lg:h-[560px]" />
           <p className="mt-2 text-sm text-granite-500">Grey pins are unverified reports. They are not on the main map until an administrator approves them.</p>
