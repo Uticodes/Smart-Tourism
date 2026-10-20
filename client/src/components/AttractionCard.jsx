@@ -18,6 +18,11 @@ export default function AttractionCard({ attraction: a, onOpen, state }) {
       ) : (
         <CategoryArt category={a.category_name} community={community} className="aspect-[2/1] w-full" />
       )}
+      {a.photo_credit && (
+        <p className="truncate px-4 pt-2 text-[11px] text-granite-500" title={`Photo: ${a.photo_credit.author}${a.photo_credit.license ? ` · ${a.photo_credit.license}` : ''}. Full credits on the place page.`}>
+          Photo: {a.photo_credit.author}{a.photo_credit.license ? ` · ${a.photo_credit.license}` : ''}
+        </p>
+      )}
       <div className="flex flex-1 flex-col p-4">
         <div className="flex items-start justify-between gap-3">
           <h3 className="text-[17px] leading-snug group-hover:text-green-700">{a.name}</h3>

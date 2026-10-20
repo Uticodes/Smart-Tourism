@@ -4,6 +4,7 @@ import ProtectedRoute from './components/ProtectedRoute.jsx';
 import HomePage from './pages/HomePage.jsx';
 import ExplorePage from './pages/ExplorePage.jsx';
 import AttractionPage from './pages/AttractionPage.jsx';
+import DirectionsPage from './pages/DirectionsPage.jsx';
 import ReportSitePage from './pages/ReportSitePage.jsx';
 import MyReportsPage from './pages/MyReportsPage.jsx';
 import CommunityPage from './pages/CommunityPage.jsx';
@@ -28,6 +29,7 @@ export default function App() {
         <Route index element={<HomePage />} />
         <Route path="explore" element={<ExplorePage />} />
         <Route path="attractions/:id" element={<AttractionPage />} />
+        <Route path="attractions/:id/directions" element={<DirectionsPage />} />
         <Route path="login" element={<LoginPage />} />
         <Route path="register" element={<RegisterPage />} />
         <Route path="preferences" element={signedIn(<PreferencesPage />)} />

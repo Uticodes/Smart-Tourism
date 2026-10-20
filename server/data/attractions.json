@@ -292,7 +292,7 @@
     "description": "Glass-domed centre with a museum and exhibition halls.",
     "latitude": 9.064695,
     "longitude": 7.485961,
-    "coord_source": "OpenStreetMap (Nominatim), matched \"Shehu Musa Yar’Adua Centre\" (way/299278167) on 2026-10-15; match reviewed 2026-10-15",
+    "coord_source": "OpenStreetMap (Nominatim), matched \"Shehu Musa Yar\u2019Adua Centre\" (way/299278167) on 2026-10-15; match reviewed 2026-10-15",
     "verified": true,
     "image_url": null
   },
@@ -449,5 +449,149 @@
     "coord_source": "OpenStreetMap (Nominatim), matched \"National Open University of Nigeria\" (way/670255155) on 2026-10-15; match reviewed 2026-10-15",
     "verified": true,
     "image_url": null
+  },
+  {
+    "name": "Jabi Lake Mall",
+    "category": "Shopping & Markets",
+    "address": "Bala Sokoto Way, Jabi, Abuja, FCT",
+    "description": "Lakeside shopping centre with shops, restaurants and views over Jabi Lake.",
+    "latitude": 9.0764536,
+    "longitude": 7.4252183,
+    "coord_source": "https://www.openstreetmap.org/way/424362497",
+    "verified": true,
+    "image_url": null,
+    "verification_sources": [
+      "https://commons.wikimedia.org/wiki/File:Jabi_lake_mall.jpg",
+      "https://www.openstreetmap.org/way/424362497"
+    ],
+    "verified_on": "2026-10-20"
+  },
+  {
+    "name": "IBB International Golf and Country Club",
+    "category": "Parks & Nature",
+    "address": "Aso Drive, Maitama, Abuja, FCT",
+    "description": "Established golf and country club with an 18-hole course. Arrange access and bookings with the club before visiting.",
+    "latitude": 9.0828845,
+    "longitude": 7.5082399,
+    "coord_source": "https://www.openstreetmap.org/relation/6274862",
+    "verified": true,
+    "image_url": null,
+    "verification_sources": [
+      "https://theibbgolfclub.com/",
+      "https://www.openstreetmap.org/relation/6274862"
+    ],
+    "verified_on": "2026-10-20"
+  },
+  {
+    "name": "Transcorp Hilton Abuja",
+    "category": "Hotels & Leisure",
+    "address": "1 Aguiyi Ironsi Street, Maitama, Abuja, FCT",
+    "description": "Landmark Abuja hotel with restaurants, gardens and leisure facilities. Access to facilities may require a reservation or day pass.",
+    "latitude": 9.074966,
+    "longitude": 7.494881,
+    "coord_source": "https://www.openstreetmap.org/relation/12186132",
+    "verified": true,
+    "image_url": null,
+    "verification_sources": [
+      "https://www.hilton.com/en/hotels/abuhitw-transcorp-hilton-abuja/",
+      "https://www.openstreetmap.org/relation/12186132"
+    ],
+    "verified_on": "2026-10-20"
+  },
+  {
+    "name": "Wuse Market",
+    "category": "Shopping & Markets",
+    "address": "Wuse Market Road, Wuse, Abuja, FCT",
+    "description": "Busy city market for fabrics, clothing, fresh produce and household goods, offering a view of everyday trading in Abuja.",
+    "latitude": 9.0685552,
+    "longitude": 7.4659377,
+    "coord_source": "https://www.openstreetmap.org/way/299203155",
+    "verified": true,
+    "image_url": null,
+    "verification_sources": [
+      "https://en.wikipedia.org/wiki/Wuse",
+      "https://www.openstreetmap.org/way/299203155"
+    ],
+    "verified_on": "2026-10-20"
+  },
+  {
+    "name": "Garki International Market",
+    "category": "Shopping & Markets",
+    "address": "Garki II, off Ahmadu Bello Way, Abuja, FCT",
+    "description": "Organised market in Garki II with shops and stalls selling food, clothing and everyday goods.",
+    "latitude": 9.0215914,
+    "longitude": 7.4913424,
+    "coord_source": "https://www.openstreetmap.org/way/1288724626",
+    "verified": true,
+    "image_url": null,
+    "verification_sources": [
+      "https://abujamarkets.com/market/Garki-International-Market--13",
+      "https://www.openstreetmap.org/way/1288724626"
+    ],
+    "verified_on": "2026-10-20"
+  },
+  {
+    "name": "Abuja Continental Hotel",
+    "category": "Hotels & Leisure",
+    "address": "1 Ladi Kwali Street, Wuse Zone 4, Abuja, FCT",
+    "description": "Established hotel formerly known as Sheraton Abuja, with restaurants, gardens and leisure facilities. Confirm reservations and facility access with the hotel.",
+    "latitude": 9.0647407,
+    "longitude": 7.4810368,
+    "coord_source": "https://www.openstreetmap.org/way/777518546",
+    "verified": true,
+    "image_url": null,
+    "verification_sources": [
+      "https://www.abujacontinental.com/",
+      "https://www.openstreetmap.org/way/777518546"
+    ],
+    "verified_on": "2026-10-20"
+  },
+  {
+    "name": "Nicon Luxury Abuja",
+    "category": "Hotels & Leisure",
+    "address": "Plot 903, Tafawa Balewa Way, Garki, Abuja, FCT",
+    "description": "Hotel and events venue in central Abuja with dining and leisure facilities. Confirm reservations and visitor access with the hotel.",
+    "latitude": 9.0454073,
+    "longitude": 7.4941897,
+    "coord_source": "https://www.openstreetmap.org/node/539000064",
+    "verified": true,
+    "image_url": null,
+    "verification_sources": [
+      "https://niconluxury.com/contact",
+      "https://www.openstreetmap.org/node/539000064"
+    ],
+    "verified_on": "2026-10-20"
+  },
+  {
+    "name": "National Arboretum Abuja",
+    "category": "Parks & Nature",
+    "address": "Three Arms Zone, Abuja, FCT",
+    "description": "Wooded arboretum near Aso Rock. Access is controlled in this part of the city; confirm permission before planning a visit.",
+    "latitude": 9.0729728,
+    "longitude": 7.5174053,
+    "coord_source": "https://www.openstreetmap.org/way/172233440",
+    "verified": true,
+    "image_url": null,
+    "verification_sources": [
+      "https://www.openstreetmap.org/way/172233440",
+      "https://www.openstreetmap.org/way/172233440"
+    ],
+    "verified_on": "2026-10-20"
+  },
+  {
+    "name": "Maitama Amusement Park",
+    "category": "Parks & Nature",
+    "address": "Ibrahim Babangida Boulevard, Maitama, Abuja, FCT",
+    "description": "Recreation and amusement-park grounds in Maitama. Confirm current attractions, opening times and admission with the venue.",
+    "latitude": 9.0846395,
+    "longitude": 7.500267,
+    "coord_source": "https://www.openstreetmap.org/relation/12228473",
+    "verified": true,
+    "image_url": null,
+    "verification_sources": [
+      "https://rcdb.com/7046.htm",
+      "https://www.openstreetmap.org/relation/12228473"
+    ],
+    "verified_on": "2026-10-20"
   }
 ]

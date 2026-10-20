@@ -2,6 +2,8 @@ const { pool } = require('../../config/db');
 const { HttpError } = require('../../middleware/errors');
 const { insideFCT, boundingBox, withinRadius } = require('../../lib/geo');
 const { directionsUrl } = require('../../lib/directions');
+const { publicName } = require('../../lib/names');
+const { withAttractionPhoto } = require('../../lib/attractionPhotos');
 
 const SELECT_COLUMNS = `
   a.attraction_id, a.name, a.category_id, c.category_name, a.description,
@@ -29,7 +31,7 @@ async function findNearby({ lat, lng, radius, minRating = 0, category }) {
     params.push(category);
   }
   const [rows] = await pool.execute(sql, params);
-  return withinRadius(rows, lat, lng, radius).map((r) => ({ ...r, distance_km: Number(r.distance_km.toFixed(2)) }));
+  return withinRadius(rows, lat, lng, radius).map((r) => withAttractionPhoto({ ...r, distance_km: Number(r.distance_km.toFixed(2)) }));
 }
 
 /** One row per search, for the analytics dashboard and the MRR evaluation (Search_Logs). */
@@ -48,7 +50,7 @@ async function getById(id, { includeInactive = false } = {}) {
     [id]
   );
   if (!row) throw new HttpError(404, 'This attraction does not exist or has been removed.');
-  return row;
+  return withAttractionPhoto(row);
 }
 
 /**
@@ -61,7 +63,7 @@ async function getDetails(id) {
   let community = null;
   if (a.source === 'community') {
     const [[r]] = await pool.execute(
-      `SELECT r.local_name, r.access_notes, r.photo_urls, r.reviewed_at, COALESCE(u.display_name, u.full_name) AS contributor
+      `SELECT r.local_name, r.access_notes, r.photo_urls, r.reviewed_at, u.display_name, u.full_name
          FROM Attractions a JOIN Site_Reports r ON r.report_id = a.report_id
          LEFT JOIN Users u ON u.user_id = r.reporter_id
         WHERE a.attraction_id = ?`,
@@ -71,7 +73,7 @@ async function getDetails(id) {
       const reportPhotos = typeof r.photo_urls === 'string' ? JSON.parse(r.photo_urls) : r.photo_urls || [];
       photos = [...new Set([...photos, ...reportPhotos])];
       community = {
-        contributor: r.contributor ? r.contributor.split(' ')[0] : null, // first name only (privacy)
+        contributor: publicName(r.display_name, r.full_name), // display name only (Section 3.8.2)
         verified_at: r.reviewed_at,
         local_name: r.local_name,
         access_notes: r.access_notes,
@@ -101,7 +103,7 @@ async function listForAdmin({ q, status, category }) {
       ${where.length ? `WHERE ${where.join(' AND ')}` : ''} ORDER BY a.name`,
     params
   );
-  return rows;
+  return rows.map(withAttractionPhoto);
 }
 
 async function assertValid(data) {

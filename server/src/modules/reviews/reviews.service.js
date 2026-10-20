@@ -1,7 +1,7 @@
 const { pool, withTransaction } = require('../../config/db');
 const { HttpError } = require('../../middleware/errors');
 
-const firstName = (name) => (name ? name.trim().split(/\s+/)[0] : 'A visitor');
+const { publicName } = require('../../lib/names');
 
 async function assertActive(conn, attractionId) {
   const [[a]] = await conn.execute("SELECT attraction_id FROM Attractions WHERE attraction_id = ? AND status = 'active'", [attractionId]);
@@ -22,7 +22,7 @@ async function refreshAverage(conn, attractionId) {
 async function list(attractionId, userId) {
   await assertActive(pool, attractionId);
   const [rows] = await pool.execute(
-    `SELECT r.review_id, r.user_id, r.rating, r.comment, r.created_at, COALESCE(u.display_name, u.full_name) AS author
+    `SELECT r.review_id, r.user_id, r.rating, r.comment, r.created_at, u.display_name, u.full_name
        FROM Reviews r JOIN Users u ON u.user_id = r.user_id
       WHERE r.attraction_id = ?
       ORDER BY r.created_at DESC, r.review_id DESC`,
@@ -36,7 +36,7 @@ async function list(attractionId, userId) {
     rating: r.rating,
     comment: r.comment,
     created_at: r.created_at,
-    author: firstName(r.author),
+    author: publicName(r.display_name, r.full_name) || 'A visitor',
     is_mine: Boolean(userId) && r.user_id === userId,
   }));
   return {

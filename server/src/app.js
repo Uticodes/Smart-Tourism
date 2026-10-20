@@ -1,5 +1,6 @@
 const express = require('express');
 const helmet = require('helmet');
+const rateLimit = require('express-rate-limit');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
@@ -10,9 +11,25 @@ const { notFound, errorHandler } = require('./middleware/errors');
 
 const app = express();
 
+// Behind a hosting proxy, trust exactly that many hops so rate limits use the visitor's IP.
+app.set('trust proxy', env.trustProxy);
+
+// Section 3.8.1: security headers, CORS for the web app's own address only, and small request bodies.
 app.use(helmet({ crossOriginResourcePolicy: { policy: 'cross-origin' } }));
-app.use(cors({ origin: env.clientOrigin, credentials: true }));
+app.use(cors({
+  origin: (origin, cb) => cb(null, !origin || origin === env.clientOrigin), // no Origin = same-origin or a tool like Postman
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
+}));
 app.use(express.json({ limit: '100kb' }));
+// A ceiling for every route; sign-in and sign-up have their own, stricter limit.
+app.use('/api', rateLimit({
+  windowMs: 15 * 60 * 1000,
+  limit: env.nodeEnv === 'test' ? 100000 : 900,
+  standardHeaders: 'draft-7',
+  legacyHeaders: false,
+  message: { error: 'Too many requests. Wait a few minutes and try again.' },
+}));
 app.use(cookieParser());
 if (env.nodeEnv !== 'test') app.use(morgan('dev'));
 

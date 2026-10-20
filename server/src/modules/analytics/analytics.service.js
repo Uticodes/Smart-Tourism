@@ -1,4 +1,5 @@
 const { pool } = require('../../config/db');
+const eventLog = require('../../lib/eventLog');
 
 // Abuja is on West Africa Time all year (UTC+1, no daylight saving), so days are counted in local time.
 const LOCAL_OFFSET = '+01:00';
@@ -125,6 +126,7 @@ async function summary({ days }) {
   );
 
   const n = (v) => Number(v || 0);
+  const warnings = eventLog.read('duplicate-warnings', days ? new Date(Date.now() - days * 86400000) : null);
   const today = dayKey(new Date());
   const byDay = Object.fromEntries(searchDays.map((r) => [new Date(r.day).toISOString().slice(0, 10), r]));
   const firstKey = days
@@ -160,6 +162,7 @@ async function summary({ days }) {
       needs_info: n(reports.needs_info),
       hidden_by_flags: n(reports.hidden_by_flags),
       near_duplicates: n(reports.near_duplicates),
+      duplicates_caught: warnings.length,
       approval_rate: decided ? Math.round((n(reports.approved) / decided) * 1000) / 1000 : null,
       avg_hours_to_decision: reports.avg_minutes_to_decision == null ? null : Math.round((Number(reports.avg_minutes_to_decision) / 60) * 10) / 10,
       community_responses: n(community.responses),

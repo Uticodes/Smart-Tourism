@@ -3,6 +3,7 @@ node_modules/
 dist/
 coverage/
 server/uploads/*
+server/logs/
 !server/uploads/.gitkeep
 .DS_Store
 

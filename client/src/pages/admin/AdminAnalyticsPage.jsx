@@ -135,7 +135,7 @@ export default function AdminAnalyticsPage() {
                 ['Waiting', num(d.reports.open), d.reports.needs_info ? `${d.reports.needs_info} need more info` : null],
                 ['Approval rate', pct(d.reports.approval_rate), 'of decided reports'],
                 ['Time to decision', d.reports.avg_hours_to_decision == null ? '–' : d.reports.avg_hours_to_decision < 1 ? 'Under 1 h' : `${d.reports.avg_hours_to_decision} h`, 'average'],
-                ['Near-duplicates', num(d.reports.near_duplicates), 'sent within 150 m of a known place'],
+                ['Duplicates caught', num(d.reports.duplicates_caught), `warned within 150 m · ${num(d.reports.near_duplicates)} sent anyway as a different place`],
                 ['Community responses', num(d.reports.community_responses), `${num(d.reports.confirms)} ${d.reports.confirms === 1 ? 'confirm' : 'confirms'} · ${num(d.reports.flags)} ${d.reports.flags === 1 ? 'flag' : 'flags'}${d.reports.hidden_by_flags ? ` · ${d.reports.hidden_by_flags} hidden` : ''}`],
               ].map(([label, value, sub]) => (
                 <div key={label}>

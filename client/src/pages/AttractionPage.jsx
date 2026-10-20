@@ -27,6 +27,21 @@ function Gallery({ attraction: a }) {
   return (
     <div>
       <img src={photos[index]} alt={`${a.name}, photo ${index + 1} of ${photos.length}`} className="aspect-[16/9] w-full rounded-lg bg-granite-100 object-cover" />
+      {a.photo_credit && photos[index] === a.photo_credit.url && (
+        <p className="mt-2 text-xs text-granite-500">
+          Photo: {a.photo_credit.author} ·{' '}
+          <a href={a.photo_credit.source_url} target="_blank" rel="noreferrer" className="underline">{a.photo_credit.source_name || 'Wikimedia Commons'}</a>
+          {a.photo_credit.license && (
+            <>{' · '}{a.photo_credit.license_url ? (
+              <a href={a.photo_credit.license_url} target="_blank" rel="noreferrer" className="underline">{a.photo_credit.license}</a>
+            ) : a.photo_credit.license}</>
+          )}
+          {' · Displayed cropped.'}
+        </p>
+      )}
+      {a.photo_credit?.caption && photos[index] === a.photo_credit.url && (
+        <p className="mt-1 text-sm text-granite-700">{a.photo_credit.caption}</p>
+      )}
       {photos.length > 1 && (
         <div className="mt-2 flex gap-2">
           {photos.map((src, i) => (
@@ -143,11 +158,12 @@ export default function AttractionPage() {
             {community && a.community?.access_notes && (
               <p className="mt-2 text-sm text-granite-700"><span className="font-semibold">Access: </span>{a.community.access_notes}</p>
             )}
-            <a href={a.directions_url} target="_blank" rel="noopener noreferrer" className="btn-primary mt-4 w-full">
+            <Link to={`/attractions/${a.attraction_id}/directions`} state={{ origin }} className="btn-primary mt-4 w-full">
               Get directions
-              <svg viewBox="0 0 20 20" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M8 4h8v8M16 4 5 15" /></svg>
+            </Link>
+            <a href={a.directions_url} target="_blank" rel="noopener noreferrer" className="mt-2 block text-center text-sm font-semibold text-green-700 hover:underline">
+              Open in Google Maps ↗
             </a>
-            <p className="mt-2 text-xs text-granite-500">Opens Google Maps with a route from where you are.</p>
           </div>
           <MapView
             center={point}
