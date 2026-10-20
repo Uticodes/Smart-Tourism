@@ -10,7 +10,7 @@ const attractionSchema = z.object({
   latitude: z.coerce.number().min(-90).max(90),
   longitude: z.coerce.number().min(-180).max(180),
   address: optionalText(255),
-  image_url: optionalText(255).refine((v) => !v || /^https?:\/\/|^\/uploads\//.test(v), 'Use a full web address starting with http.'),
+  image_url: optionalText(255).refine((v) => !v || /^https?:\/\/|^\/uploads\/|^\/photos\/places\//.test(v), 'Use a full web address or a place photo from this app.'),
   status: z.enum(['active', 'inactive']).default('active'),
 });
 

@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { Polyline } from 'react-leaflet';
 import AdminNav from '../../components/AdminNav.jsx';
 import StatusBadge from '../../components/StatusBadge.jsx';
 import FormField from '../../components/FormField.jsx';
@@ -169,11 +168,8 @@ export default function AdminReportPage() {
 
         <aside className="space-y-6 lg:sticky lg:top-20 lg:self-start">
           <div>
-            <MapView center={point} zoom={16} markers={markers} fitToMarkers={Boolean(report.nearest)} fitMaxZoom={18} className="h-[300px]">
-              {report.nearest && (
-                <Polyline positions={[[point.lat, point.lng], [report.nearest.latitude, report.nearest.longitude]]} pathOptions={{ color: '#2B3036', weight: 2, dashArray: '5 6' }} />
-              )}
-            </MapView>
+            <MapView center={point} zoom={16} markers={markers} fitToMarkers={Boolean(report.nearest)} fitMaxZoom={18} className="h-[300px]"
+              lines={report.nearest ? [{ path: [point, { lat: report.nearest.latitude, lng: report.nearest.longitude }], dashed: true }] : []} />
             <p className="mt-2 text-sm text-granite-700">
               {report.nearest
                 ? <>Red pin: this report. {report.nearest.kind === 'attraction' ? 'Green pin' : 'Grey pin'}: <span className="font-semibold">{report.nearest.name}</span>, {Math.round(report.nearest.distance_m)} m away{report.nearest.kind === 'attraction' && <> (<Link to={`/attractions/${report.nearest.id}`} target="_blank" className="text-green-700 underline">open</Link>)</>}.</>

@@ -1,3 +1,4 @@
+const env = require('../../config/env');
 const { pool, withTransaction } = require('../../config/db');
 const { HttpError } = require('../../middleware/errors');
 const { insideFCT, boundingBox, nearestWithin, withinRadius } = require('../../lib/geo');
@@ -5,10 +6,11 @@ const { afterResponse, canAdminDecide, COMMUNITY_CAN_RESPOND, ADMIN_ACTIONS, OPE
 
 const DUPLICATE_METRES = 150;   // FR-12: anything closer may be the same place
 const NEAREST_CONTEXT_M = 1000; // nearest place recorded for the admin, even if not a duplicate
-const DAILY_LIMIT = 5;          // FR-15: reports per user per 24 hours
+const DAILY_LIMIT = env.reportDailyLimit; // FR-15: reports per user per 24 hours (5)
 
 const parsePhotos = (v) => (typeof v === 'string' ? JSON.parse(v) : v || []);
-const firstName = (name) => (name ? name.trim().split(/\s+/)[0] : null);
+const { publicName } = require('../../lib/names');
+const eventLog = require('../../lib/eventLog');
 
 /* ------------------------------------------------------------------ F7: submit */
 
@@ -32,6 +34,9 @@ async function preflight(userId, data) {
 
   const nearest = await findNearest(data.latitude, data.longitude, NEAREST_CONTEXT_M);
   if (nearest && nearest.distance_m <= DUPLICATE_METRES && !data.different_place) {
+    eventLog.append('duplicate-warnings', {
+      user_id: userId, nearest_kind: nearest.kind, nearest_id: nearest.id, distance_m: nearest.distance_m, category_id: data.category_id,
+    });
     throw new HttpError(409, `“${nearest.name}” is ${Math.round(nearest.distance_m)} m from this point. Is it the same place?`, undefined, {
       code: 'DUPLICATE',
       nearby: nearest,
@@ -257,12 +262,15 @@ async function adminGet(reportId, conn = pool) {
   const [[row]] = await conn.execute(`SELECT ${ADMIN_COLUMNS} ${ADMIN_FROM} WHERE r.report_id = ?`, [reportId]);
   if (!row) throw new HttpError(404, 'Report not found.');
   const [responses] = await conn.execute(
-    `SELECT v.response, v.reason, v.created_at, COALESCE(u.display_name, u.full_name) AS user_name
+    `SELECT v.response, v.reason, v.created_at, u.display_name, u.full_name
        FROM Report_Verifications v JOIN Users u ON u.user_id = v.user_id
       WHERE v.report_id = ? ORDER BY v.created_at DESC, v.verification_id DESC`,
     [reportId]
   );
-  return { ...shapeAdmin(row), responses: responses.map((v) => ({ ...v, user_name: firstName(v.user_name) })) };
+  return {
+    ...shapeAdmin(row),
+    responses: responses.map(({ display_name, full_name, ...v }) => ({ ...v, user_name: publicName(display_name, full_name) })),
+  };
 }
 
 /**

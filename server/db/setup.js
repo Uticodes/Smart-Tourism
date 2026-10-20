@@ -15,6 +15,8 @@ const CATEGORIES = [
   ['Arts & Culture', 'Museums, galleries, craft villages and cultural centres'],
   ['Religious Sites', 'Places of worship of architectural or cultural interest'],
   ['Educational Sites', 'Libraries, science centres and places of learning'],
+  ['Shopping & Markets', 'Markets, shopping centres and local trading destinations'],
+  ['Hotels & Leisure', 'Visitor accommodation, dining and leisure venues'],
 ];
 
 async function main() {

@@ -196,6 +196,14 @@ export default function ExplorePage() {
                     {on && (
                       <div className="flex items-center justify-between gap-3 border-t border-granite-100 px-4 py-2.5">
                         <span className="truncate text-sm text-granite-500">{a.address}</span>
+                        <span className="flex shrink-0 gap-4">
+                        <Link
+                          to={`/attractions/${a.attraction_id}/directions`}
+                          state={{ origin: { lat: origin.lat, lng: origin.lng, label: origin.label } }}
+                          className="text-sm font-semibold text-green-700 hover:underline"
+                        >
+                          Directions
+                        </Link>
                         <Link
                           to={`/attractions/${a.attraction_id}`}
                           state={{ origin: { lat: origin.lat, lng: origin.lng, label: origin.label } }}
@@ -203,6 +211,7 @@ export default function ExplorePage() {
                         >
                           View details →
                         </Link>
+                        </span>
                       </div>
                     )}
                   </div>
@@ -222,6 +231,7 @@ export default function ExplorePage() {
             radiusKm={debouncedRadius}
             bounds={picking ? null : circleBounds}
             onMapClick={onMapClick}
+            picking={picking}
             className={`h-[480px] lg:h-full ${picking ? 'cursor-crosshair ring-2 ring-green-600' : ''}`}
           />
         </div>

@@ -15,6 +15,12 @@ function notFound(req, res) {
 
 // eslint-disable-next-line no-unused-vars
 function errorHandler(err, req, res, next) {
+  if (err.type === 'entity.too.large') {
+    return res.status(413).json({ error: 'The request is too large.' });
+  }
+  if (err.type === 'entity.parse.failed') {
+    return res.status(400).json({ error: 'The request body is not valid JSON.' });
+  }
   if (err.name === 'ZodError') {
     return res.status(400).json({ error: 'Some details are missing or not valid.', details: err.issues });
   }

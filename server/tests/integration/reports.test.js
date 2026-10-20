@@ -40,6 +40,7 @@ const uploadFiles = () => {
 beforeAll(async () => {
   await resetDb();
   fs.rmSync(env.uploadDir, { recursive: true, force: true });
+  fs.rmSync(env.eventLogDir, { recursive: true, force: true });
   jpeg = await photoWithGps();
   const [cats] = await pool.query('SELECT category_id, category_name FROM Categories');
   cat = Object.fromEntries(cats.map((c) => [c.category_name, c.category_id]));
@@ -126,6 +127,9 @@ describe('TC-REP-03 Duplicate check', () => {
     expect(res.body.nearby.distance_m).toBeGreaterThan(70);
     expect(res.body.nearby.distance_m).toBeLessThan(90);
     expect(uploadFiles().length).toBe(before);
+    // The catch is logged even though no report was saved (pilot metric: duplicates caught).
+    const caught = require('../../src/lib/eventLog').read('duplicate-warnings');
+    expect(caught.at(-1)).toEqual(expect.objectContaining({ nearest_kind: 'attraction', nearest_id: parkId }));
   });
 
   test('ticking "this is a different place" saves it, with the nearest place recorded', async () => {

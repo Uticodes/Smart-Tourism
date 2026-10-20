@@ -26,6 +26,14 @@ const env = {
   },
   // Where re-encoded report photos are saved; served read-only at /uploads.
   uploadDir: process.env.UPLOAD_DIR || path.join(__dirname, '../../uploads'),
+  // Section 3.8.2: full search coordinates are kept this many days, then cut to 2 decimal places (~1.1 km).
+  searchLogRetentionDays: Number(process.env.SEARCH_LOG_RETENTION_DAYS || 30),
+  // FR-15: site reports per user per 24 hours. Only the isolated performance test raises it.
+  reportDailyLimit: Number(process.env.REPORT_DAILY_LIMIT || 5),
+  // Where duplicate warnings are logged (see src/lib/eventLog.js).
+  eventLogDir: process.env.EVENT_LOG_DIR || path.join(__dirname, '../../logs'),
+  // Set to 1 when deployed behind one reverse proxy (Render, Railway, Nginx) so rate limits see the real client IP.
+  trustProxy: process.env.TRUST_PROXY ? Number(process.env.TRUST_PROXY) : 0,
   fct: {
     minLat: Number(process.env.FCT_MIN_LAT || 8.3),
     maxLat: Number(process.env.FCT_MAX_LAT || 9.4),
@@ -33,5 +41,15 @@ const env = {
     maxLng: Number(process.env.FCT_MAX_LNG || 7.7),
   },
 };
+
+// Refuse to start in production with settings that are only safe on a laptop.
+if (env.nodeEnv === 'production') {
+  if (env.jwt.secret.length < 32 || /change|secret|example/i.test(env.jwt.secret)) {
+    throw new Error('JWT_SECRET must be a random value of at least 32 characters in production.');
+  }
+  if (!/^https:\/\//.test(env.clientOrigin)) {
+    throw new Error('CLIENT_ORIGIN must be the https:// address of the web app in production.');
+  }
+}
 
 module.exports = env;

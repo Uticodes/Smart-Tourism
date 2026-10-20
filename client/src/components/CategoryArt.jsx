@@ -1,6 +1,16 @@
 // Stand-in artwork for attractions without a photo: a simple line drawing per category,
 // on green for curated places and laterite for community-discovered ones.
 const GLYPHS = {
+  'Shopping & Markets': (
+    <>
+      <path d="M8 18h32v23H8zM7 18l4-10h26l4 10M17 30h14v11M16 8v10M24 8v10M32 8v10" />
+    </>
+  ),
+  'Hotels & Leisure': (
+    <>
+      <path d="M10 41V7h28v34M6 41h36M20 41V30h8v11M17 14h2M29 14h2M17 21h2M29 21h2" />
+    </>
+  ),
   'Historical Sites': (
     <>
       <path d="M8 24h32M10 24v14M18 24v14M30 24v14M38 24v14M6 40h36" />

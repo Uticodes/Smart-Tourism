@@ -1,0 +1,102 @@
+{
+  "checked_on": "2026-10-20",
+  "added": [
+    {
+      "place": "Cathedral Church of the Advent",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Cathedral_Church_of_the_Advent_Abuja.jpg",
+      "license": "CC BY-SA 4.0"
+    },
+    {
+      "place": "National Library of Nigeria",
+      "source_url": "https://freeknowledgeafrica.org/open-sharing-and-the-21st-century-librarian-training-at-the-national-library-headquarters/",
+      "license": "CC BY-SA 4.0",
+      "note": "Shows an event inside the headquarters; caption added to make the subject clear."
+    }
+  ],
+  "remaining": [
+    {
+      "place": "Old Parade Ground",
+      "status": "permission_needed",
+      "sources": [
+        "https://www.courtsoftheworld.com/nigeria/abuja/old-parade-ground/",
+        "https://www.channelstv.com/2019/05/27/childrens-day-celebration-in-pictures/"
+      ],
+      "note": "Location-specific court and event photographs found; no open reuse license verified."
+    },
+    {
+      "place": "City Park",
+      "status": "permission_needed",
+      "sources": [
+        "https://www.flickr.com/photos/harrypwt/45473391631"
+      ],
+      "author": "Harry Purwanto",
+      "note": "White bridge photo explicitly identifies Abuja City Park, Wuse. Flickr photo page marks this photo All rights reserved."
+    },
+    {
+      "place": "Abuja Plant Nursery",
+      "status": "no_verified_photo",
+      "sources": [
+        "https://www.africabizinfo.com/NG/abuja-plant-nursery"
+      ],
+      "note": "Location directory found, but no confirmed photo of this specific nursery with reuse permission. Generic nurseries rejected."
+    },
+    {
+      "place": "Kuje Forest Reserve",
+      "status": "location_unverified",
+      "sources": [
+        "https://abujadigest.info/stories/news/insecurity-fcta-clears-parts-of-kuje-forest/"
+      ],
+      "note": "Photos/news about Kuje forest found, but not verified as the app\u2019s specific reserve. Kuje town and market images rejected."
+    },
+    {
+      "place": "Lugbe Forest Reserve",
+      "status": "no_verified_photo",
+      "sources": [
+        "https://mapcarta.com/37372666"
+      ],
+      "note": "Map listing found; its nearby-place photo depicts Lugbe settlement, not the forest reserve, so not used."
+    },
+    {
+      "place": "National Gallery of Art",
+      "status": "permission_and_location_check_needed",
+      "sources": [
+        "https://nga.gov.ng/who-we-are/",
+        "https://nga.gov.ng/contact/"
+      ],
+      "note": "Official photos found. Current official headquarters address is Federal Secretariat Complex; verify exact venue before selecting a photo, and obtain reuse permission."
+    },
+    {
+      "place": "Our Lady Queen of Nigeria Pro-Cathedral",
+      "status": "permission_needed",
+      "sources": [
+        "https://www.flickr.com/photos/opus-dei/28224099007/",
+        "https://www.thecable.ng/photos-worshippers-excited-as-churches-re-open-in-abuja/"
+      ],
+      "note": "Location-confirmed church/event photos found. The Opus Dei Flickr photo is license 0 (All rights reserved); no open reuse permission verified."
+    },
+    {
+      "place": "Sheda Science and Technology Complex",
+      "status": "permission_needed",
+      "sources": [
+        "https://ng.worldorgs.com/catalog/abuja/research-institute/shedascienceandtechnologycomplex",
+        "https://www.govserv.org/NG/Unknown/554476257986062/Sheda-Science-and-Technology-Complex"
+      ],
+      "note": "Named photo galleries and public institutional posts found; reuse permission not established."
+    },
+    {
+      "place": "Nigerian Law School, Abuja Campus",
+      "status": "permission_needed",
+      "sources": [
+        "https://www.nigerianlawschool.edu.ng/",
+        "https://ng.worldorgs.com/catalog/bwari/school/nigerianlawschoolheadquartersbwariabuja"
+      ],
+      "note": "Official and named Bwari-campus photo sources found; reuse permission not established. Photos of other campuses rejected."
+    }
+  ],
+  "catalog_search_note": "Openverse queries timed out for ten locations and returned no results for Abuja Plant Nursery. These failures are not treated as proof that no reusable images exist.",
+  "library_photo_update": {
+    "date": "2026-10-20",
+    "note": "Group photograph replaced by an externally hosted, source-credited headquarters exterior. The source does not state an open reuse license.",
+    "source_url": "https://myschoolnews.ng/national-library-of-nigeria-calls-for-enhanced-reading-culture-at-abuja-book-city-logo-launch"
+  }
+}
