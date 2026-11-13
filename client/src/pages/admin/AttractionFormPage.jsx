@@ -104,7 +104,13 @@ export default function AttractionFormPage() {
             <LocationPicker
               value={point}
               onChange={(p) => {
-                setForm({ ...form, latitude: p.lat, longitude: p.lng });
+                setForm((f) => ({
+                  ...f,
+                  latitude: p.lat,
+                  longitude: p.lng,
+                  name: f.name || p.name || '',
+                  address: f.address || p.address || '',
+                }));
                 setErrors(({ latitude, longitude, ...rest }) => rest);
               }}
               className="h-[380px]"

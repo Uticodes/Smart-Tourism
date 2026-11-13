@@ -122,7 +122,11 @@ export default function ReportSitePage() {
       setErrors((e) => ({ ...e, latitude: 'That point is outside the FCT. Only places in the FCT can be reported.' }));
       return;
     }
-    setPoint(p);
+    setPoint({ lat: p.lat, lng: p.lng });
+    if (p.name && !form.site_name.trim()) {
+      setForm((f) => ({ ...f, site_name: p.name }));
+      clearError('site_name');
+    }
     clearError('latitude');
   }
 
@@ -131,7 +135,7 @@ export default function ReportSitePage() {
     if (form.site_name.trim().length < 2) e.site_name = 'Enter the name of the place.';
     if (!form.category_id) e.category_id = 'Choose a category.';
     if (form.description.trim().length < 20) e.description = 'Describe the place in at least 20 characters.';
-    if (!point) e.latitude = 'Drop a pin on the place, or use your location if you are there now.';
+    if (!point) e.latitude = 'Search for the place, drop a pin on the map, or use your location if you are there now.';
     if (photos.length === 0) e.photos = 'Add at least one photo.';
     if (!publicAccess) e.public_access = 'Confirm that the public can visit this place.';
     return e;

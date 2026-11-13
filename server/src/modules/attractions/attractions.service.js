@@ -144,4 +144,22 @@ async function deactivate(id) {
   return getById(id, { includeInactive: true });
 }
 
-module.exports = { findNearby, logSearch, getById, getDetails, listForAdmin, create, update, deactivate };
+/** Lightweight place lookup for the map pin picker (does not log to Search_Logs). */
+async function lookupPlaces(q) {
+  const term = String(q || '').trim();
+  if (term.length < 2) return [];
+  const like = `%${term}%`;
+  const [rows] = await pool.execute(
+    'SELECT attraction_id, name, address, latitude, longitude FROM Attractions WHERE status = ? AND (name LIKE ? OR address LIKE ?) ORDER BY name LIMIT 6',
+    ['active', like, like]
+  );
+  return rows.map((r) => ({
+    id: `attraction-${r.attraction_id}`,
+    name: r.name,
+    address: r.address || 'Abuja, FCT',
+    lat: Number(r.latitude),
+    lng: Number(r.longitude),
+  }));
+}
+
+module.exports = { findNearby, logSearch, getById, getDetails, listForAdmin, create, update, deactivate, lookupPlaces };

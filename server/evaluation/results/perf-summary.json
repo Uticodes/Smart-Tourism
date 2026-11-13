@@ -1,0 +1,58 @@
+{
+  "target_ms": 2000,
+  "pass": true,
+  "endpoints": [
+    {
+      "endpoint": "Location search",
+      "n": 50,
+      "mean": 4.02,
+      "sd": 3.0605455029308426,
+      "min": 2,
+      "median": 4,
+      "p95": 6,
+      "max": 24
+    },
+    {
+      "endpoint": "Recommendations",
+      "n": 50,
+      "mean": 3.84,
+      "sd": 0.79179465488863,
+      "min": 2,
+      "median": 4,
+      "p95": 5,
+      "max": 6
+    },
+    {
+      "endpoint": "Report submission",
+      "n": 50,
+      "mean": 85.02,
+      "sd": 3.7334122926538376,
+      "min": 80,
+      "median": 84,
+      "p95": 91,
+      "max": 104
+    }
+  ],
+  "all": {
+    "n": 150,
+    "mean": 30.96,
+    "sd": 38.45678826629169,
+    "min": 2,
+    "median": 4,
+    "p95": 87,
+    "max": 104
+  },
+  "environment": {
+    "date": "2026-10-22T12:43:35.709Z",
+    "machine": "Apple M3 Pro (12 cores), 18 GB RAM, Darwin 27.0.0",
+    "node": "v26.5.0",
+    "mysql": "8.0.46",
+    "newman": "6.2.3",
+    "attractions": 50,
+    "photo_mb": 1.9,
+    "iterations": 50,
+    "wall_seconds": 6.3,
+    "assertion_failures": 0,
+    "non_2xx": 0
+  }
+}

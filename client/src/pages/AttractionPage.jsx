@@ -158,7 +158,7 @@ export default function AttractionPage() {
             {community && a.community?.access_notes && (
               <p className="mt-2 text-sm text-granite-700"><span className="font-semibold">Access: </span>{a.community.access_notes}</p>
             )}
-            <Link to={`/attractions/${a.attraction_id}/directions`} state={{ origin }} className="btn-primary mt-4 w-full">
+            <Link to={`/attractions/${a.attraction_id}/directions`} state={{ origin, fromDetails: true }} className="btn-primary mt-4 w-full">
               Get directions
             </Link>
             <a href={a.directions_url} target="_blank" rel="noopener noreferrer" className="mt-2 block text-center text-sm font-semibold text-green-700 hover:underline">
