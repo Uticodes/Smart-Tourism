@@ -1,0 +1,225 @@
+{
+  "generated_at": "2026-11-12T22:18:13.586Z",
+  "performance": {
+    "target_ms": 2000,
+    "pass": true,
+    "endpoints": [
+      {
+        "endpoint": "Location search",
+        "n": 50,
+        "mean": 4.02,
+        "sd": 3.0605455029308426,
+        "min": 2,
+        "median": 4,
+        "p95": 6,
+        "max": 24
+      },
+      {
+        "endpoint": "Recommendations",
+        "n": 50,
+        "mean": 3.84,
+        "sd": 0.79179465488863,
+        "min": 2,
+        "median": 4,
+        "p95": 5,
+        "max": 6
+      },
+      {
+        "endpoint": "Report submission",
+        "n": 50,
+        "mean": 85.02,
+        "sd": 3.7334122926538376,
+        "min": 80,
+        "median": 84,
+        "p95": 91,
+        "max": 104
+      }
+    ],
+    "all": {
+      "n": 150,
+      "mean": 30.96,
+      "sd": 38.45678826629169,
+      "min": 2,
+      "median": 4,
+      "p95": 87,
+      "max": 104
+    },
+    "environment": {
+      "date": "2026-10-22T12:43:35.709Z",
+      "machine": "Apple M3 Pro (12 cores), 18 GB RAM, Darwin 27.0.0",
+      "node": "v26.5.0",
+      "mysql": "8.0.46",
+      "newman": "6.2.3",
+      "attractions": 50,
+      "photo_mb": 1.9,
+      "iterations": 50,
+      "wall_seconds": 6.3,
+      "assertion_failures": 0,
+      "non_2xx": 0
+    }
+  },
+  "mrr": {
+    "lists_shown": 79,
+    "lists_with_selection": 18,
+    "selection_rate": 0.22784810126582278,
+    "mrr": 0.43216490299823634,
+    "hit_at_1": 0.2777777777777778,
+    "hit_at_3": 0.4444444444444444,
+    "mrr_signed_in": 0.4111855158730158,
+    "mrr_guests": 0.6,
+    "rank_distribution": [
+      {
+        "rank": "1",
+        "count": 5
+      },
+      {
+        "rank": "2",
+        "count": 2
+      },
+      {
+        "rank": "3",
+        "count": 1
+      },
+      {
+        "rank": "4",
+        "count": 0
+      },
+      {
+        "rank": "5",
+        "count": 2
+      },
+      {
+        "rank": "6+",
+        "count": 8
+      }
+    ]
+  },
+  "pilot": {
+    "reports_submitted": 6,
+    "approved": 3,
+    "rejected": 2,
+    "still_open": 1,
+    "reached_three_confirmations": 2,
+    "hidden_by_flags": 1,
+    "duplicates_caught": 1,
+    "sent_after_duplicate_warning": 0,
+    "approval_rate_of_submitted": 0.5,
+    "approval_rate_of_decided": 0.6,
+    "mean_hours_to_decision": 3.194,
+    "median_hours_to_decision": 2.01
+  },
+  "sus": {
+    "file": "/tmp/claude-0/-home-claude/470cc5d9-c5b4-5c77-996e-ff1037fdaa7f/scratchpad/resp/sus3.csv",
+    "columns_used": [
+      "q1",
+      "q2",
+      "q3",
+      "q4",
+      "q5",
+      "q6",
+      "q7",
+      "q8",
+      "q9",
+      "q10"
+    ],
+    "n": 15,
+    "skipped_incomplete": [],
+    "mean": 82,
+    "sd": 18.20517979665599,
+    "median": 90,
+    "min": 40,
+    "max": 100,
+    "ci95": [
+      71.91830746774271,
+      92.08169253225729
+    ],
+    "above_68": 13,
+    "acceptability": [
+      {
+        "range": "Acceptable",
+        "count": 13
+      },
+      {
+        "range": "Marginal",
+        "count": 0
+      },
+      {
+        "range": "Not acceptable",
+        "count": 2
+      }
+    ],
+    "t_test_vs_68": {
+      "t": 2.9783703018886714,
+      "df": 14,
+      "p_one_sided": 0.0049848930886373655
+    },
+    "by_group": [
+      {
+        "group": "staff",
+        "n": 4,
+        "mean": 80,
+        "sd": 27.386127875258307
+      },
+      {
+        "group": "student",
+        "n": 4,
+        "mean": 69.375,
+        "sd": 18.526445062846424
+      },
+      {
+        "group": "visitor",
+        "n": 3,
+        "mean": 90.83333333333333,
+        "sd": 10.103629710818451
+      },
+      {
+        "group": "resident",
+        "n": 4,
+        "mean": 90,
+        "sd": 2.041241452319315
+      }
+    ],
+    "item_means": [
+      {
+        "item": 1,
+        "mean": 4.2
+      },
+      {
+        "item": 2,
+        "mean": 1.9333333333333333
+      },
+      {
+        "item": 3,
+        "mean": 4.2
+      },
+      {
+        "item": 4,
+        "mean": 1.9333333333333333
+      },
+      {
+        "item": 5,
+        "mean": 4.533333333333333
+      },
+      {
+        "item": 6,
+        "mean": 1.4666666666666666
+      },
+      {
+        "item": 7,
+        "mean": 4.133333333333334
+      },
+      {
+        "item": 8,
+        "mean": 1.3333333333333333
+      },
+      {
+        "item": 9,
+        "mean": 4.2
+      },
+      {
+        "item": 10,
+        "mean": 1.8
+      }
+    ]
+  }
+}

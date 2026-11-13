@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { Link, useLocation, useParams } from 'react-router-dom';
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { AdvancedMarker, useMap, useMapsLibrary } from '@vis.gl/react-google-maps';
 import MapView, { ABUJA_CENTRE, MapLine } from '../components/map/MapView.jsx';
 import { MAPS_KEY } from '../components/map/MapsProvider.jsx';
@@ -57,6 +57,7 @@ function Camera({ follow, me, routePath, onUserMove }) {
 export default function DirectionsPage() {
   const { id } = useParams();
   const location = useLocation();
+  const navigate = useNavigate();
   const routesLib = useMapsLibrary('routes');
   const geo = useGeolocation();
   const [place, setPlace] = useState({ loading: true, error: '', a: null });
@@ -251,7 +252,19 @@ export default function DirectionsPage() {
 
   return (
     <section className="mx-auto max-w-6xl px-4 py-5 sm:px-6 sm:py-8">
-      <Link to={`/attractions/${a.attraction_id}`} className="text-sm font-semibold text-granite-700 hover:text-green-700">← {a.name}</Link>
+      <button
+        type="button"
+        onClick={() =>
+          // Came from the details page: step back, so the details page's own Back still returns to Explore.
+          // Opened directly (e.g. from Explore): swap this page for the details page instead of stacking another entry.
+          location.state?.fromDetails
+            ? navigate(-1)
+            : navigate(`/attractions/${a.attraction_id}`, { replace: true, state: { origin: location.state?.origin } })
+        }
+        className="text-sm font-semibold text-granite-700 hover:text-green-700"
+      >
+        ← {a.name}
+      </button>
       <h1 className="mt-2 text-2xl sm:text-3xl">Directions to {a.name}</h1>
 
       {!MAPS_KEY ? (

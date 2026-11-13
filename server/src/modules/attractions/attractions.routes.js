@@ -25,6 +25,15 @@ router.get('/nearby', optionalAuth, validate(nearbyQuery, 'query'), async (req, 
   }
 });
 
+router.get('/lookup', async (req, res, next) => {
+  try {
+    const q = z.string().trim().max(150).optional().default('').parse(req.query.q);
+    res.json({ places: await service.lookupPlaces(q) });
+  } catch (err) {
+    next(err);
+  }
+});
+
 router.get('/:id', async (req, res, next) => {
   try {
     const id = z.coerce.number().int().positive().parse(req.params.id);

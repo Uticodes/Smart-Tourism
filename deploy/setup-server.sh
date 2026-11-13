@@ -103,7 +103,7 @@ sudo tee /etc/systemd/system/discover-abuja-api.service >/dev/null <<UNIT
 [Unit]
 Description=Discover Abuja API
 After=network.target mysql.service
-Requires=mysql.service
+Wants=mysql.service
 
 [Service]
 Type=simple

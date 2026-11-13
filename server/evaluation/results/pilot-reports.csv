@@ -1,0 +1,7 @@
+"report_id","category","status","submitted_at_abuja","decided_at_abuja","hours_to_decision","confirmations","flags","hidden_by_flags","nearest_known_place_m","sent_after_duplicate_warning"
+"1","Educational Sites","pending","2026-11-12 14:53","","","1","0","no","684.5","no"
+"2","Parks & Nature","approved","2026-11-12 15:01","2026-11-12 21:24","6.37","3","0","no","","no"
+"3","Educational Sites","rejected","2026-11-12 15:51","2026-11-12 21:06","5.26","0","3","yes","","no"
+"4","Educational Sites","approved","2026-11-12 18:52","2026-11-12 20:53","2.01","1","0","no","","no"
+"5","Shopping & Markets","rejected","2026-11-12 20:42","2026-11-12 22:09","1.44","4","0","no","340.1","no"
+"6","Historical Sites","approved","2026-11-12 21:15","2026-11-12 22:08","0.89","2","0","no","972.1","no"
